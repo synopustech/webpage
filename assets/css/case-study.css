@@ -1,0 +1,508 @@
+/* Case Study Page Specific Styles */
+
+/* Emoji fallback support */
+@font-face {
+    font-family: 'emoji';
+    src: local('Apple Color Emoji'), local('Segoe UI Emoji'), local('Segoe UI Symbol'), local('Noto Color Emoji');
+    unicode-range: U+1F600-1F64F, U+1F300-1F5FF, U+1F680-1F6FF, U+1F1E0-1F1FF, U+2600-26FF, U+2700-27BF;
+}
+
+h1, h2, h3, .challenge-icon, .result-icon, .use-case-icon, .process-arrow {
+    font-family: 'emoji', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.375rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+}
+
+/* Case Study Overview */
+.case-study-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Section Styles */
+.challenge-section, .solution-section, .results-section, .other-uses-section, .technology-section {
+    margin-bottom: 4rem;
+}
+
+.section-intro {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Challenge List */
+.challenge-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.challenge-item {
+    display: flex;
+    align-items: flex-start;
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+    padding: 2rem;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.challenge-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.challenge-icon {
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    margin-top: 0.25rem;
+    color: var(--accent-secondary);
+}
+
+.challenge-text h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--light);
+    font-weight: 700;
+}
+
+.challenge-text p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* Process Flow */
+.process-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.process-step {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+    padding: 2rem;
+    position: relative;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: 2rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.step-content h3 {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+    color: var(--light);
+    font-weight: 700;
+}
+
+.step-content p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.tech-detail {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+}
+
+.process-arrow {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--accent);
+    margin: 1rem 0;
+}
+
+/* Results Grid */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.result-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+    padding: 2rem;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.result-icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.result-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+    color: var(--light);
+    font-weight: 700;
+}
+
+.result-comparison {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.before, .after {
+    text-align: center;
+    flex: 1;
+}
+
+.before {
+    color: var(--accent-secondary);
+}
+
+.after {
+    color: var(--accent);
+}
+
+.label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.result-impact {
+    background: rgba(34, 197, 94, 0.1);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-left: 3px solid #22c55e;
+    color: #22c55e;
+    font-size: 0.875rem;
+}
+
+/* Use Cases Grid */
+.use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.use-case-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+    padding: 2rem;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.use-case-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.use-case-icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.use-case-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--light);
+    font-weight: 700;
+}
+
+.use-case-card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.use-case-benefit {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+}
+
+/* Technology Stack */
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.tech-category {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+    padding: 2rem;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+.tech-category h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.tech-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-item {
+    background: var(--primary);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--light);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    padding: 4rem 2rem;
+    text-align: center;
+    margin: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: 800;
+}
+
+.cta-content h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: white;
+}
+
+.cta-content p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background: white;
+    color: var(--primary);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: white;
+}
+    color: var(--light);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    padding: 4rem 2rem;
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.cta-content h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.cta-content h2::after {
+    background: white;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cta-content p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: white;
+    color: var(--primary);
+}
+
+.btn-primary:hover {
+    background: var(--gray-100);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: var(--primary);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .challenge-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-flow {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-section h1 {
+        font-size: 4rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-section h1 {
+        font-size: 4.5rem;
+    }
+    
+    .process-flow {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+}
