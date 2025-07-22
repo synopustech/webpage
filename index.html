@@ -18,23 +18,35 @@
     <link rel="canonical" href="https://synopustech.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #2D3282;       /* Deep blue */
-            --secondary: #00B2E3;     /* Bright sky blue */
-            --accent: #FF5733;        /* Vibrant orange-red */
-            --light: #F5F7FA;         /* Off-white */
-            --dark: #333645;          /* Dark blue-gray */
-            --light-bg: #E8F4FF;      /* Light blue for backgrounds */
-            --card-shadow: 0 4px 12px rgba(45, 50, 130, 0.08);
-            --card-shadow-hover: 0 8px 24px rgba(45, 50, 130, 0.15);
+            --primary: #0A0E27;       /* Very dark navy */
+            --secondary: #1A1D29;     /* Dark slate */
+            --accent: #00D4FF;        /* Bright cyan */
+            --accent-secondary: #FF6B6B; /* Coral red */
+            --light: #FFFFFF;         /* Pure white */
+            --gray-50: #F8FAFC;       /* Light gray */
+            --gray-100: #F1F5F9;      /* Lighter gray */
+            --gray-200: #E2E8F0;      /* Medium light gray */
+            --gray-600: #475569;      /* Medium gray */
+            --gray-900: #0F172A;      /* Very dark gray */
+            --text: #1E293B;          /* Dark blue-gray text */
+            --text-light: #64748B;    /* Light gray text */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
         
         html {
@@ -43,10 +55,25 @@
         }
         
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--primary);
+            color: var(--light);
+            line-height: 1.7;
             overflow-x: hidden;
+            font-weight: 400;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
         }
         
         img {
@@ -56,43 +83,118 @@
         
         .container {
             width: 100%;
-            padding: 0 1.25rem;
+            max-width: 1200px;
+            padding: 0 1.5rem;
             margin: 0 auto;
         }
         
+        /* Animation classes for scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .animate-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 1.5rem 0;
-            margin-bottom: 2rem;
+            padding: 2rem 0;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%),
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-10px) translateY(-5px); }
+            50% { transform: translateX(10px) translateY(5px); }
+            75% { transform: translateX(-5px) translateY(10px); }
         }
         
         .logo-container {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: space-between;
+            align-items: center;
             padding-bottom: 1.5rem;
-        }
-          .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -1px;
             position: relative;
-            margin-bottom: 0.25rem;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
             color: white;
             text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
         }
         
         .logo::after {
             content: "";
             position: absolute;
-            bottom: -5px;
+            bottom: -8px;
             left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--accent);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            transition: width 0.3s ease;
         }
-          .logo span {
+        
+        .logo span {
             color: var(--accent);
         }
         
@@ -102,22 +204,21 @@
         
         .logo:hover, .logo:focus {
             color: var(--accent);
-            background: none;
-            text-decoration: none;
+            transform: translateY(-2px);
         }
         
-        .header-nav {
-            margin-left: auto;
+        .logo:hover::after {
+            width: 80px;
         }
         
         .header-nav .nav-links {
             display: flex;
             list-style: none;
-            margin-top: 1rem;
+            gap: 2rem;
         }
         
         .header-nav .nav-links li {
-            margin-left: 1.5rem;
+            position: relative;
         }
         
         .header-nav .nav-links a {
@@ -125,82 +226,81 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            transition: color 0.3s;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
         }
         
         .header-nav .nav-links a:hover, 
         .header-nav .nav-links a:focus {
-            color: var(--accent);
-            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
         
         .hero {
             text-align: center;
-            margin-bottom: 2rem;
+            padding: 4rem 0;
+            position: relative;
+            z-index: 10;
         }
         
         .hero h1 {
-            font-size: 1.875rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
-            line-height: 1.2;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
         }
         
         .hero p {
-            font-size: 1rem;
+            font-size: 1.25rem;
             opacity: 0.9;
-            line-height: 1.5;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 6rem;
         }
         
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--light);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
             position: relative;
-            padding-bottom: 0.625rem;
-            line-height: 1.3;
         }
         
         h2::after {
             content: "";
             position: absolute;
-            bottom: 0;
+            bottom: -10px;
             left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: var(--secondary);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
         }
         
         .etymology-section {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: var(--card-shadow);
-            padding: 1.5rem;
-            margin-bottom: 3rem;
+            background-color: var(--secondary);
+            padding: 4rem 2rem;
+            margin-bottom: 6rem;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .etymology-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-left: 6px solid var(--accent);
         }
         
         .etymology-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 3rem;
         }
         
         .etymology-item {
@@ -209,175 +309,208 @@
         }
         
         .etymology-title {
-            font-size: 1.125rem;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
         
         .etymology-content {
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--gray-200);
         }
         
         .etymology-content p {
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
         
         .etymology-highlight {
-            color: var(--secondary);
-            font-weight: 600;
+            color: var(--accent);
+            font-weight: 700;
         }
         
         .grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.25rem;
+            gap: 2rem;
         }
         
         .card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: var(--card-shadow);
-            padding: 1.25rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-left: 3px solid transparent;
+            background-color: var(--secondary);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid var(--gray-600);
+            position: relative;
+            overflow: hidden;
         }
         
-        .card:hover, .card:focus {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-            border-left: 3px solid var(--secondary);
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent);
         }
         
         .card h3 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            font-size: 1.125rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
-            line-height: 1.3;
+            font-weight: 700;
         }
         
         .icon {
-            min-width: 2.25rem;
-            height: 2.25rem;
-            background-color: var(--light-bg);
-            border-radius: 50%;
+            min-width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.7) 0%, rgba(255, 107, 107, 0.7) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 0.75rem;
-            color: var(--primary);
-            font-size: 1.125rem;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
         
         .card p {
-            color: var(--dark);
-            opacity: 0.9;
-            font-size: 0.9375rem;
+            color: var(--gray-200);
+            font-size: 1rem;
+            line-height: 1.7;
         }
         
         .cta {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(255, 107, 107, 0.8) 100%);
+            padding: 4rem 2rem;
             text-align: center;
             color: white;
-            border-radius: 0.75rem;
-            margin-bottom: 3rem;
+            margin-bottom: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
         }
         
         .cta h2 {
             color: white;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 10;
         }
         
         .cta h2::after {
-            background-color: var(--accent);
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
             left: 50%;
             transform: translateX(-50%);
         }
         
         .cta p {
-            margin-bottom: 1.25rem;
-            font-size: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            position: relative;
+            z-index: 10;
         }
         
-        .navigation {
-            background-color: var(--primary);
-            padding: 1rem 0;
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-decoration: none;
-        }
-        
-        .nav-logo span {
-            color: var(--accent);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover, .nav-links a:focus {
-            color: var(--accent);
-        }
         
         .btn {
             display: inline-block;
-            background-color: var(--accent);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(255, 107, 107, 0.8) 100%);
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
+            padding: 1rem 2.5rem;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9375rem;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 87, 51, 0.3);
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            overflow: hidden;
         }
         
-        .btn:hover, .btn:focus {
-            background-color: #e64a2e;
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 87, 51, 0.4);
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8) 0%, rgba(0, 212, 255, 0.8) 100%);
         }
         
         footer {
-            background-color: var(--dark);
+            background-color: var(--secondary);
             color: white;
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(-135deg, transparent 30%, rgba(255, 107, 107, 0.05) 50%, transparent 70%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
         }
         
         .footer-content {
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
         
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
@@ -386,10 +519,32 @@
             color: var(--accent);
         }
         
+        .footer-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+            padding: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .footer-nav a:hover, .footer-nav a:focus {
+            color: var(--accent);
+        }
+        
         .copyright {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             opacity: 0.7;
-            font-size: 0.8125rem;
+            font-size: 0.9rem;
         }
         
         /* Accessibility improvements */
@@ -407,47 +562,25 @@
             top: 0;
         }
         
-        /* Footer navigation */
-        .footer-nav {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-nav a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9375rem;
-            padding: 0.25rem;
-        }
-        
-        .footer-nav a:hover, .footer-nav a:focus {
-            color: var(--accent);
-        }
-        
         /* Go to top button */
         .go-top {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background-color: var(--primary);
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(255, 107, 107, 0.8) 100%);
             color: white;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 99;
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
         
         .go-top.show {
@@ -455,109 +588,61 @@
             visibility: visible;
         }
         
-        .go-top:hover, .go-top:focus {
-            background-color: var(--secondary);
+        .go-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8) 0%, rgba(0, 212, 255, 0.8) 100%);
         }
+        
         
         /* Medium devices (tablets, 768px and up) */
         @media (min-width: 768px) {
             .container {
-                max-width: 720px;
-            }
-              .logo-container {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
-            
-            .header-nav {
-                margin-left: auto;
-            }
-            
-            .header-nav .nav-links {
-                margin-top: 0;
-            }
-            
-            .logo {
-                margin-bottom: 0;
-                font-size: 2.25rem;
+                padding: 0 2rem;
             }
             
             .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.125rem;
-                max-width: 80%;
-                margin: 0 auto;
-            }
-            
-            h2 {
-                font-size: 1.75rem;
-            }
-            
-            .etymology-section {
-                padding: 2rem;
-            }
-            
-            .etymology-grid {
-                grid-template-columns: 1fr 1fr;
+                font-size: 4rem;
             }
             
             .grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .etymology-title {
-                font-size: 1.25rem;
-            }
-            
-            .card h3 {
-                font-size: 1.2rem;
-            }
-            
-            .cta {
-                padding: 3rem 2rem;
+            .etymology-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
         /* Large devices (desktops, 992px and up) */
         @media (min-width: 992px) {
-            .container {
-                max-width: 960px;
+            .logo-container {
+                flex-direction: row;
+                padding-bottom: 0;
             }
             
-            .logo {
-                font-size: 2.5rem;
+            .header-nav {
+                margin-left: auto;
+                margin-top: 0;
             }
             
             .hero h1 {
-                font-size: 2.75rem;
-            }
-            
-            .hero p {
-                max-width: 70%;
+                font-size: 5rem;
             }
             
             .grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .etymology-section {
-                padding: 2.5rem;
+            .etymology-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
         /* Extra large devices (large desktops, 1200px and up) */
         @media (min-width: 1200px) {
             .container {
-                max-width: 1140px;
-            }
-            
-            .hero h1 {
-                font-size: 3rem;
+                max-width: 1400px;
             }
         }
     </style>
@@ -617,75 +702,80 @@
 <body>    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <div class="container">
-            <div class="logo-container">                <a href="index.html" class="logo" aria-label="SynOpusTech Logo">Syn<span>O</span>pus<span>Tech</span></a>
-                <nav class="header-nav">
+            <div class="logo-container">
+                <a href="index.html" class="logo" aria-label="SynOpusTech Homepage">
+                    Syn<span>O</span>pus<span>Tech</span>
+                </a>
+                <nav class="header-nav" aria-label="Main Navigation">
                     <ul class="nav-links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="case-study.html">Case Study</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="hero">
-                <h1>Transform Your Business with AI-Powered Solutions</h1>
-                <p>We help businesses and enterprises simplify workflows, optimize operations, and focus on growth through strategic technology implementation and AI integration.</p>
+            <div class="hero animate-on-scroll">
+                <h1>Transform Your Business with<br><span style="color: var(--accent);">AI-Powered Solutions</span></h1>
+                <p>Streamline operations, boost efficiency, and drive sustainable growth through intelligent automation and strategic digital transformation.</p>
             </div>
         </div>
     </header>
-      <main id="main-content" class="container">
-        <section id="transformation-approach" aria-labelledby="approach-heading">
+    
+    <main id="main-content" class="container">
+        <section id="transformation-approach" aria-labelledby="approach-heading" class="animate-slide-left">
             <h2 id="approach-heading">Our Business Transformation Approach</h2>
             <div class="grid">
-                <div class="card">
-                    <h3><div class="icon" aria-hidden="true">🧭</div>Strategic & ROI-Driven Transformation</h3>
-                    <p>We partner to reimagine your business for the digital age, focusing on data-driven strategies that deliver measurable ROI.</p>
+                <div class="card animate-on-scroll">
+                    <h3><div class="icon" aria-hidden="true">🎯</div>Strategic Assessment</h3>
+                    <p>Comprehensive analysis of your current processes, technology stack, and business objectives to identify transformation opportunities and ROI potential.</p>
                 </div>
-                <div class="card">
-                    <h3><div class="icon" aria-hidden="true">👥</div>Managed & Phased Implementation</h3>
-                    <p>We guide your organization through complex change with phased implementation and expert change management, ensuring smooth adoption.</p>
+                <div class="card animate-on-scroll">
+                    <h3><div class="icon" aria-hidden="true">�️</div>Custom Solution Design</h3>
+                    <p>Tailored technology solutions built specifically for your industry, workflow, and scalability requirements using the latest AI and automation technologies.</p>
                 </div>
-                <div class="card">
-                    <h3><div class="icon" aria-hidden="true">💡</div>Future-Ready Innovation</h3>
-                    <p>We establish frameworks for continuous innovation, enabling ongoing optimization and adaptation to keep you ahead.</p>
+                <div class="card animate-on-scroll">
+                    <h3><div class="icon" aria-hidden="true">�</div>Implementation & Growth</h3>
+                    <p>Seamless deployment with comprehensive training, ongoing support, and continuous optimization to ensure sustained business growth and competitive advantage.</p>
                 </div>
             </div>
         </section>
         
-        <section id="transformation-services" aria-labelledby="services-heading">
+        <section id="transformation-services" aria-labelledby="services-heading" class="animate-slide-right">
             <h2 id="services-heading">IT & Business Transformation Services</h2>
             <div class="grid">
-                <div class="card">
+                <div class="card animate-on-scroll">
                     <h3><div class="icon" aria-hidden="true">🤖</div>Strategic Transformation & AI</h3>
                     <p>Crafting digital roadmaps, optimizing processes with AI and automation, and leveraging data for strategic insights and growth.</p>
                 </div>
-                <div class="card">
+                <div class="card animate-on-scroll">
                     <h3><div class="icon" aria-hidden="true">🛡️</div>Technology Modernization & Security</h3>
                     <p>Upgrading legacy systems, migrating to the cloud for scalability, and implementing robust cybersecurity to protect your assets.</p>
                 </div>
-                <div class="card">
+                <div class="card animate-on-scroll">
                     <h3><div class="icon" aria-hidden="true">🌐</div>Digital Experience & Workforce Enablement</h3>
                     <p>Enhancing customer journeys across digital touchpoints and empowering your teams with modern tools and skills.</p>
                 </div>
             </div>
         </section>
-          <div class="cta">
+        
+        <div class="cta animate-scale">
             <h2>Ready to Transform Your Business?</h2>
             <p>Let's start your digital transformation journey together.</p>
             <a href="contact.html" class="btn">Get in Touch</a>
         </div>
         
-        <section id="transformation-methods" aria-labelledby="methods-heading">
+        <section id="transformation-methods" aria-labelledby="methods-heading" class="animate-slide-left">
             <h2 id="methods-heading">How We Deliver IT Transformation</h2>
             <div class="grid">
-                <div class="card">
+                <div class="card animate-on-scroll">
                     <h3><div class="icon" aria-hidden="true">🤝</div>Consultative Planning & Agile Execution</h3>
                     <p>From collaborative workshops and strategic IT roadmapping to agile implementation of integrated technology solutions.</p>
                 </div>
-                <div class="card">
+                <div class="card animate-on-scroll">
                     <h3><div class="icon" aria-hidden="true">🛠️</div>Custom Solutions & Advanced Analytics</h3>
                     <p>Developing tailored applications and implementing advanced analytics to deliver predictive insights and solve unique business challenges.</p>
                 </div>
-                <div class="card">
+                <div class="card animate-on-scroll">
                     <h3><div class="icon" aria-hidden="true">⚙️</div>Managed Services & Continuous Learning</h3>
                     <p>Providing proactive IT support, managed services for operational peace of mind, and technology training for sustained team adoption and growth.</p>
                 </div>
@@ -700,7 +790,7 @@
                 <p>Simplifying workflows. Enabling growth.</p>                <nav aria-label="Footer Navigation">
                     <ul class="footer-nav">
                         <li><a href="/">Home</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="case-study.html">Case Study</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
@@ -712,6 +802,25 @@
     <a href="#" class="go-top" aria-label="Go to top of page">↑</a>
 
     <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll, .animate-slide-left, .animate-slide-right, .animate-scale').forEach(el => {
+            observer.observe(el);
+        });
+        
         // Back to top button functionality
         const goTopButton = document.querySelector('.go-top');
         
@@ -742,6 +851,31 @@
                     }
                 }
             });
+        });
+        
+        // Add parallax effect to header background with fade out
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('header');
+            const hero = document.querySelector('.hero');
+            
+            if (header) {
+                // Parallax effect
+                header.style.transform = `translateY(${scrolled * 0.3}px)`;
+                
+                // Fade out effect when scrolling
+                const fadeStart = 100;
+                const fadeEnd = 400;
+                
+                if (scrolled <= fadeStart) {
+                    header.style.opacity = '1';
+                } else if (scrolled >= fadeEnd) {
+                    header.style.opacity = '0';
+                } else {
+                    const opacity = 1 - ((scrolled - fadeStart) / (fadeEnd - fadeStart));
+                    header.style.opacity = opacity;
+                }
+            }
         });
     </script>
 </body>

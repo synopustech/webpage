@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Invoice Automation Case Study | SynOpusTech</title>
+    <meta name="description" content="Learn how SynOpusTech transformed invoice processing with AI automation - from email receipt to ERP integration. Discover our step-by-step approach and potential use cases.">
+    <meta name="keywords" content="AI invoice automation, invoice processing, ERP integration, SAP automation, accounts payable automation, OCR technology, workflow automation">
+    <meta name="author" content="SynOpusTech">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="AI Invoice Automation Case Study | SynOpusTech">
+    <meta property="og:description" content="Discover how we automated invoice processing from email to ERP with AI technology. Real-world case study with measurable results.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://synopustech.com/about-us">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://synopustech.com/about-us">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Emoji fallback support to prevent diamond display */
+        @font-face {
+            font-family: 'emoji';
+            src: local('Apple Color Emoji'), local('Segoe UI Emoji'), local('Segoe UI Symbol'), local('Noto Color Emoji');
+            unicode-range: U+1F600-1F64F, U+1F300-1F5FF, U+1F680-1F6FF, U+1F1E0-1F1FF, U+2600-26FF, U+2700-27BF;
+        }
+        
+        /* Apply emoji font fallback to elements that might contain emojis */
+        h1, h2, h3, .challenge-icon, .result-icon, .use-case-icon, .process-arrow {
+            font-family: 'emoji', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        :root {
+            --primary: #0A0E27;       /* Very dark navy */
+            --secondary: #1A1D29;     /* Dark slate */
+            --accent: #00D4FF;        /* Bright cyan */
+            --accent-secondary: #652f2f; /* Coral red */
+            --light: #FFFFFF;         /* Pure white */
+            --gray-50: #F8FAFC;       /* Light gray */
+            --gray-100: #F1F5F9;      /* Lighter gray */
+            --gray-200: #E2E8F0;      /* Medium light gray */
+            --gray-600: #475569;      /* Medium gray */
+            --gray-900: #0F172A;      /* Very dark gray */
+            --text: #1E293B;          /* Dark blue-gray text */
+            --text-light: #64748B;    /* Light gray text */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--primary);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+        }
+        
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 1.5rem;
+            margin: 0 auto;
+        }
+        
+        /* Animation classes for scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .animate-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%),
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                transparent 70%, 
+                rgba(10, 14, 39, 0.8) 90%, 
+                var(--primary) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-10px) translateY(-5px); }
+            50% { transform: translateX(10px) translateY(5px); }
+            75% { transform: translateX(-5px) translateY(10px); }
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .logo:visited {
+            color: white;
+        }
+        
+        .logo:hover, .logo:focus {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .logo:hover::after {
+            width: 80px;
+        }
+        
+        .header-nav .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .header-nav .nav-links li {
+            position: relative;
+        }
+        
+        .header-nav .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
+        }
+        
+        .header-nav .nav-links a:hover, 
+        .header-nav .nav-links a:focus {
+            color: var(--primary);
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        section {
+            margin-bottom: 6rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--light);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+        }
+        
+        .etymology-section {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        
+        .etymology-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary));
+        }
+        
+        .etymology-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .etymology-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .etymology-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .etymology-content {
+            line-height: 1.8;
+            color: var(--light);
+        }
+        
+        .etymology-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .etymology-highlight {
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+        
+        .about-section {
+            margin-bottom: 4rem;
+        }
+        
+        .about-content {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .about-content:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--light);
+        }
+        
+        .team-section {
+            margin-bottom: 4rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .team-member {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 3rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.05) 50%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+        
+        .team-member:hover::before {
+            opacity: 1;
+        }
+        
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            background-color: var(--card-bg);
+            margin-bottom: 2rem;
+            border: 4px solid var(--accent);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover .team-photo {
+            border-color: var(--accent-secondary);
+            transform: scale(1.05);
+        }
+        
+        .team-member:hover .team-photo img {
+            transform: scale(1.1);
+        }
+        
+        .team-details h3 {
+            color: var(--light);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .team-role {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .team-bio {
+            color: var(--light);
+            line-height: 1.7;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary));
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover, .card:focus {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+        
+        .card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .card h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+        
+        .icon {
+            min-width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.7) 0%, rgba(255, 107, 107, 0.7) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .icon {
+            transform: scale(1.1);
+        }
+        
+        .card p {
+            color: var(--light);
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .navigation {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 1.5rem 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .nav-logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
+        }
+        
+        .nav-links a:hover, .nav-links a:focus {
+            color: var(--primary);
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(255, 107, 107, 0.8) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover, .btn:focus {
+            transform: translateY(-3px);
+            border-color: rgba(0, 212, 255, 0.6);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8) 0%, rgba(0, 212, 255, 0.8) 100%);
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(-135deg, transparent 30%, rgba(255, 107, 107, 0.05) 50%, transparent 70%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo span {
+            color: var(--accent);
+        }
+        
+        .footer-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+            padding: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .footer-nav a:hover, .footer-nav a:focus {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+        
+        /* Accessibility improvements */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Go to top button */
+        .go-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(255, 107, 107, 0.8) 100%);
+            color: white;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 99;
+            border: 2px solid transparent;
+            font-size: 1.25rem;
+        }
+        
+        .go-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-top:hover, .go-top:focus {
+            transform: translateY(-3px);
+            border-color: rgba(0, 212, 255, 0.6);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8) 0%, rgba(0, 212, 255, 0.8) 100%);
+        }
+        
+        /* Medium devices (tablets, 768px and up) */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+              .logo-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            
+            .header-nav {
+                margin-left: auto;
+            }
+            
+            .header-nav .nav-links {
+                margin-top: 0;
+            }
+            
+            .logo {
+                margin-bottom: 0;
+                font-size: 2.25rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.125rem;
+                max-width: 80%;
+                margin: 0 auto;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .etymology-section {
+                padding: 2rem;
+            }
+            
+            .etymology-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .etymology-title {
+                font-size: 1.25rem;
+            }
+            
+            .card h3 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Large devices (desktops, 992px and up) */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+            
+            .hero p {
+                max-width: 70%;
+            }
+            
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.25rem;
+            }
+            
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+            
+            .etymology-section {
+                padding: 2.5rem;
+            }
+        }
+        
+        /* Extra large devices (large desktops, 1200px and up) */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        /* Case Study Specific Styles */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 107, 107, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--accent);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .case-study-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--light);
+            font-weight: 600;
+        }
+        
+        .challenge-section, .solution-section, .results-section, .other-uses-section, .technology-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-intro {
+            font-size: 1.125rem;
+            color: var(--light);
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .challenge-list {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .challenge-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2rem;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .challenge-item:hover {
+            transform: translateX(10px);
+            border-color: var(--accent-secondary);
+        }
+        
+        .challenge-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .challenge-text h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .challenge-text p {
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover {
+            transform: scale(1.02);
+            border-color: var(--accent);
+        }
+        
+        .step-number {
+            width: 3rem;
+            height: 3rem;
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 900;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .step-content p {
+            color: var(--light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-detail {
+            font-size: 0.875rem;
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 500;
+        }
+        
+        .process-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .result-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .result-card h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .result-comparison {
+            margin-bottom: 1.5rem;
+        }
+        
+        .before, .after {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+        }
+        
+        .before {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .after {
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .label {
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .value {
+            color: var(--light);
+        }
+        
+        .result-impact {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--accent);
+        }
+        
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .use-case-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .use-case-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .use-case-card h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .use-case-card p {
+            color: var(--light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .use-case-benefit {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.875rem;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .tech-category {
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(26, 29, 41, 0.8) 100%);
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .tech-category h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-item {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            margin-bottom: 4rem;
+        }
+        
+        .cta-content h2 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            font-size: 2rem;
+        }
+        
+        .cta-content h2::after {
+            display: none;
+        }
+        
+        .cta-content p {
+            color: var(--light);
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: rgba(0, 212, 255, 0.8);
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: rgba(0, 212, 255, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.8);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.8);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Design for Case Study */
+        @media (min-width: 768px) {
+            .hero-section h1 {
+                font-size: 3rem;
+            }
+            
+            .challenge-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .process-step {
+                flex-direction: row;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .hero-section h1 {
+                font-size: 3.5rem;
+            }
+            
+            .process-flow {
+                max-width: 1000px;
+            }
+        }
+    </style>
+</head>
+<body>    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <div class="container">
+            <div class="logo-container">                <a href="index.html" class="logo" aria-label="SynOpusTech Logo">Syn<span>O</span>pus<span>Tech</span></a>
+                <nav class="header-nav">
+                    <ul class="nav-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="case-study.html">Case Study</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="hero">
+                <h1>AI Invoice Automation</h1>
+                <p>Discover how we transformed manual invoice processing into an intelligent, automated workflow that saves time and reduces errors.</p>
+            </div>
+        </div>
+    </header>
+    
+    <main id="main-content" class="container">
+        <section class="hero-section animate-on-scroll">
+            <h1>AI Invoice Automation Case Study</h1>
+            <p class="hero-subtitle">How We Transformed Manual Invoice Processing into an Intelligent, Automated Workflow</p>
+            <div class="case-study-overview">
+                <div class="stat-card animate-scale">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Processing Time Reduced</div>
+                </div>
+                <div class="stat-card animate-scale">
+                    <div class="stat-number">99.2%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-card animate-scale">
+                    <div class="stat-number">40hrs</div>
+                    <div class="stat-label">Weekly Time Saved</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="challenge-section animate-slide-left">
+            <h2>🎯 The Challenge</h2>
+            <div class="challenge-content">
+                <p>Our client, a mid-sized manufacturing company, was drowning in paperwork. Their accounts payable team was manually processing hundreds of invoices each week, each arriving in different formats via email:</p>
+                <div class="challenge-list">
+                    <div class="challenge-item">
+                        <div class="challenge-icon">📧</div>
+                        <div class="challenge-text">
+                            <h4>Email Overload</h4>
+                            <p>300+ invoices received weekly through email in various formats (PDF, images, scanned documents)</p>
+                        </div>
+                    </div>
+                    <div class="challenge-item">
+                        <div class="challenge-icon">📋</div>
+                        <div class="challenge-text">
+                            <h4>Manual Data Entry</h4>
+                            <p>Staff spending 40+ hours weekly manually typing invoice details into their SAP system</p>
+                        </div>
+                    </div>
+                    <div class="challenge-item">
+                        <div class="challenge-icon">⏰</div>
+                        <div class="challenge-text">
+                            <h4>Slow Approval Process</h4>
+                            <p>Paper-based approval workflows taking 5-7 days, causing payment delays and vendor relationship issues</p>
+                        </div>
+                    </div>
+                    <div class="challenge-item">
+                        <div class="challenge-icon">❌</div>
+                        <div class="challenge-text">
+                            <h4>Human Errors</h4>
+                            <p>15% error rate in manual data entry leading to payment disputes and reconciliation headaches</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="solution-section animate-slide-right">
+            <h2>💡 Our AI-Powered Solution</h2>
+            <p class="section-intro">We designed an intelligent system that transforms chaotic invoice processing into a smooth, automated workflow:</p>
+            
+            <div class="process-flow">
+                <div class="process-step animate-scale">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>🤖 Smart Email Processing</h3>
+                        <p>AI monitors the company's invoice email account 24/7, automatically identifying and extracting invoices from attachments</p>
+                        <div class="tech-detail">Uses: Computer Vision + Natural Language Processing</div>
+                    </div>
+                </div>
+                
+                <div class="process-arrow">→</div>
+                
+                <div class="process-step animate-scale">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>📖 Intelligent Document Reading</h3>
+                        <p>Advanced OCR technology converts any invoice format (PDF, image, scan) into machine-readable text with 99.2% accuracy</p>
+                        <div class="tech-detail">Uses: Advanced OCR + Machine Learning</div>
+                    </div>
+                </div>
+                
+                <div class="process-arrow">→</div>
+                
+                <div class="process-step animate-scale">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>🧠 Smart Data Extraction</h3>
+                        <p>AI identifies and extracts key information: vendor name, amount, invoice number, date, line items - regardless of invoice layout</p>
+                        <div class="tech-detail">Uses: Named Entity Recognition + Pattern Matching</div>
+                    </div>
+                </div>
+                
+                <div class="process-arrow">→</div>
+                
+                <div class="process-step animate-scale">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>✅ Automated Approval Workflow</h3>
+                        <p>System routes invoices to appropriate managers based on amount, department, and vendor rules. Automatic approval for pre-approved vendors under threshold</p>
+                        <div class="tech-detail">Uses: Business Rules Engine + Workflow Automation</div>
+                    </div>
+                </div>
+                
+                <div class="process-arrow">→</div>
+                
+                <div class="process-step animate-scale">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>📊 SAP Integration</h3>
+                        <p>Approved invoices automatically upload to SAP with all details pre-filled, triggering payment scheduling and updating financial records</p>
+                        <div class="tech-detail">Uses: API Integration + Data Mapping</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-section animate-on-scroll">
+            <h2>📈 Measurable Results</h2>
+            <div class="results-grid">
+                <div class="result-card animate-scale">
+                    <div class="result-icon">⚡</div>
+                    <h3>Speed Improvement</h3>
+                    <div class="result-comparison">
+                        <div class="before">
+                            <span class="label">Before:</span>
+                            <span class="value">5-7 days average processing</span>
+                        </div>
+                        <div class="after">
+                            <span class="label">After:</span>
+                            <span class="value">2-4 hours average processing</span>
+                        </div>
+                    </div>
+                    <div class="result-impact">95% faster processing time</div>
+                </div>
+                
+                <div class="result-card animate-scale">
+                    <div class="result-icon">🎯</div>
+                    <h3>Accuracy Boost</h3>
+                    <div class="result-comparison">
+                        <div class="before">
+                            <span class="label">Before:</span>
+                            <span class="value">85% accuracy (manual entry)</span>
+                        </div>
+                        <div class="after">
+                            <span class="label">After:</span>
+                            <span class="value">99.2% accuracy (AI processing)</span>
+                        </div>
+                    </div>
+                    <div class="result-impact">14.2% improvement in accuracy</div>
+                </div>
+                
+                <div class="result-card animate-scale">
+                    <div class="result-icon">💰</div>
+                    <h3>Cost Savings</h3>
+                    <div class="result-comparison">
+                        <div class="before">
+                            <span class="label">Before:</span>
+                            <span class="value">40 hours/week manual work</span>
+                        </div>
+                        <div class="after">
+                            <span class="label">After:</span>
+                            <span class="value">2 hours/week oversight</span>
+                        </div>
+                    </div>
+                    <div class="result-impact">$78,000 annual savings</div>
+                </div>
+                
+                <div class="result-card animate-scale">
+                    <div class="result-icon">😊</div>
+                    <h3>Employee Satisfaction</h3>
+                    <div class="result-comparison">
+                        <div class="before">
+                            <span class="label">Before:</span>
+                            <span class="value">Repetitive data entry work</span>
+                        </div>
+                        <div class="after">
+                            <span class="label">After:</span>
+                            <span class="value">Strategic financial analysis</span>
+                        </div>
+                    </div>
+                    <div class="result-impact">Staff now focus on high-value tasks</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="other-uses-section animate-slide-left">
+            <h2>🚀 Other Powerful Use Cases</h2>
+            <p class="section-intro">The same AI technology can transform other document-heavy processes:</p>
+            
+            <div class="use-cases-grid">
+                <div class="use-case-card animate-scale">
+                    <div class="use-case-icon">📋</div>
+                    <h3>Purchase Order Processing</h3>
+                    <p>Automatically extract and process purchase orders from emails, validate against budgets, and route for approval</p>
+                    <div class="use-case-benefit">Reduce PO processing time by 80%</div>
+                </div>
+                
+                <div class="use-case-card animate-scale">
+                    <div class="use-case-icon">📄</div>
+                    <h3>Contract Management</h3>
+                    <p>Extract key terms, dates, and obligations from contracts. Set up automatic renewal reminders and compliance tracking</p>
+                    <div class="use-case-benefit">Never miss important contract dates</div>
+                </div>
+                
+                <div class="use-case-card animate-scale">
+                    <div class="use-case-icon">📋</div>
+                    <h3>Expense Report Automation</h3>
+                    <p>Process receipt photos from mobile devices, categorize expenses, and validate against company policies</p>
+                    <div class="use-case-benefit">Reduce expense processing by 90%</div>
+                </div>
+                
+                <div class="use-case-card animate-scale">
+                    <div class="use-case-icon">📊</div>
+                    <h3>Insurance Claims Processing</h3>
+                    <p>Extract information from claim forms and supporting documents, validate coverage, and accelerate claims processing</p>
+                    <div class="use-case-benefit">Process claims 5x faster</div>
+                </div>
+                
+                <div class="use-case-card animate-scale">
+                    <div class="use-case-icon">🏥</div>
+                    <h3>Medical Records Digitization</h3>
+                    <p>Convert paper medical records to digital format, extract patient information, and integrate with electronic health records</p>
+                    <div class="use-case-benefit">Improve patient care coordination</div>
+                </div>
+                
+                <div class="use-case-card animate-scale">
+                    <div class="use-case-icon">🏠</div>
+                    <h3>Real Estate Document Processing</h3>
+                    <p>Process property documents, extract key details, and automatically populate property management systems</p>
+                    <div class="use-case-benefit">Streamline property onboarding</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="technology-section animate-slide-right">
+            <h2>🔧 Technology Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-category">
+                    <h3>AI & Machine Learning</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Computer Vision</span>
+                        <span class="tech-item">Natural Language Processing</span>
+                        <span class="tech-item">OCR Technology</span>
+                        <span class="tech-item">Pattern Recognition</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Integration & Automation</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">RESTful APIs</span>
+                        <span class="tech-item">Workflow Engines</span>
+                        <span class="tech-item">ERP Connectors</span>
+                        <span class="tech-item">Email Processing</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Security & Compliance</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Data Encryption</span>
+                        <span class="tech-item">Audit Trails</span>
+                        <span class="tech-item">Access Controls</span>
+                        <span class="tech-item">GDPR Compliance</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section animate-on-scroll">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Invoice Processing?</h2>
+                <p>See how AI automation can revolutionize your document workflows and save your team countless hours of manual work.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">Schedule a Demo</a>
+                    <a href="contact.html" class="btn btn-secondary">Get Free Assessment</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo" aria-label="SynOpusTech Logo">Syn<span>O</span>pus<span>Tech</span></div>
+                <p>Simplifying workflows. Enabling growth.</p>                <nav aria-label="Footer Navigation">
+                    <ul class="footer-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="case-study.html">Case Study</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <p class="copyright">© 2025 SynOpusTech. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <a href="#" class="go-top" aria-label="Go to top of page">↑</a>
+
+    <script>
+        // Scroll animations
+        const observeElements = () => {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-slide-left, .animate-slide-right, .animate-scale');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            animatedElements.forEach((element) => {
+                observer.observe(element);
+            });
+        };
+        
+        // Initialize animations when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', observeElements);
+        } else {
+            observeElements();
+        }
+        
+        // Back to top button functionality
+        const goTopButton = document.querySelector('.go-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                goTopButton.classList.add('show');
+            } else {
+                goTopButton.classList.remove('show');
+            }
+        });
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Add parallax effect to header background with fade out
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('header');
+            const hero = document.querySelector('.hero');
+            
+            if (header) {
+                // Parallax effect
+                header.style.transform = `translateY(${scrolled * 0.3}px)`;
+                
+                // Fade out effect when scrolling
+                const fadeStart = 100;
+                const fadeEnd = 400;
+                
+                if (scrolled <= fadeStart) {
+                    header.style.opacity = '1';
+                } else if (scrolled >= fadeEnd) {
+                    header.style.opacity = '0';
+                } else {
+                    const opacity = 1 - ((scrolled - fadeStart) / (fadeEnd - fadeStart));
+                    header.style.opacity = opacity;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
