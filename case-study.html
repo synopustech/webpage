@@ -196,8 +196,10 @@
         
         .logo-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            gap: 1.5rem;
             padding-bottom: 1.5rem;
             position: relative;
             z-index: 10;
@@ -772,11 +774,11 @@
             .container {
                 max-width: 720px;
             }
-              .logo-container {
+            .logo-container {
                 flex-direction: row;
-                align-items: center;
                 justify-content: space-between;
-                flex-wrap: wrap;
+                align-items: center;
+                gap: 0;
             }
             
             .header-nav {
