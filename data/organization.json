@@ -1,0 +1,34 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SynOpusTech",
+  "url": "https://synopustech.com",
+  "logo": "https://synopustech.com/logo.png",
+  "description": "SynOpusTech is a premier IT company in Sydney, offering AI-powered business transformation, IT solutions, cloud services, and cybersecurity. Drive growth with our expert technology consulting.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "32 Donald Street",
+    "addressLocality": "Marsden Park",
+    "addressRegion": "NSW",
+    "postalCode": "2765",
+    "addressCountry": "AU"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "info@synopustech.com"
+  },
+  "sameAs": [
+  ],
+  "serviceType": ["IT Support", "IT Consulting", "AI Solutions", "Cloud Computing Services", "Cybersecurity Services", "Digital Transformation Services", "Managed IT Services", "Process Optimization", "Technology Modernization", "Data-Driven Decision Making"],
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "New South Wales"
+    },
+    {
+      "@type": "Country",
+      "name": "Australia"
+    }
+  ]
+}

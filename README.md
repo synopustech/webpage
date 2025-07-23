@@ -9,6 +9,15 @@ webpage/
 ├── index.html                 # Homepage with business services and approach
 ├── contact.html              # Contact page with form and information
 ├── case-study.html           # AI Invoice Automation case study
+├── css/
+│   ├── main.css              # Shared styles (variables, base, header, footer, animations)
+│   ├── index.css             # Index page specific styles
+│   ├── contact.css           # Contact page specific styles
+│   └── case-study.css        # Case study page specific styles
+├── js/
+│   ├── index.js              # Index page JavaScript (animations, interactions)
+│   ├── contact.js            # Contact page JavaScript (form handling, validation)
+│   └── case-study.js         # Case study JavaScript (scroll animations)
 ├── favicon.svg               # Site favicon
 ├── CNAME                     # Domain configuration for GitHub Pages
 └── README.md                 # This file
@@ -32,15 +41,21 @@ webpage/
 
 ## 🔧 Architecture
 
-This project uses a **self-contained approach** with inline styles and scripts:
+This project uses a **modular CSS architecture** with shared common styles and page-specific overrides:
+
+### CSS Architecture
+- **`main.css`**: Shared foundation containing CSS variables, base styles, header/footer, buttons, cards, animations, and responsive breakpoints
+- **Page-specific CSS**: Each page has its own CSS file with unique styles and overrides
+- **Cohesive Design**: Common elements maintained in one place for easy updates
+- **Maintainable**: Centralized shared styles reduce code duplication
 
 ### Benefits
-- ✅ **Zero Dependencies**: No external CSS/JS files to manage
-- ✅ **Fast Loading**: Everything loads in a single request per page
-- ✅ **Easy Deployment**: Just upload HTML files - no asset management
-- ✅ **Portable**: Each page is completely self-contained
-- ✅ **Simple Maintenance**: All styles and scripts are in the same file
-- ✅ **GitHub Pages Ready**: Works perfectly with static hosting
+- ✅ **Maintainable**: Update shared components once, apply everywhere
+- ✅ **Cohesive**: Consistent design system across all pages
+- ✅ **Organized**: Clear separation between shared and page-specific styles
+- ✅ **Efficient**: Reduced code duplication and smaller file sizes
+- ✅ **Scalable**: Easy to add new pages with consistent styling
+- ✅ **Fast Loading**: Optimized CSS loading with shared caching
 
 ## Features
 
@@ -84,24 +99,28 @@ This project uses a **self-contained approach** with inline styles and scripts:
 ## Customization
 - **Logo & Branding:**
   - Update the logo text in headers/footers across all pages
-  - Modify color variables in the CSS `:root` section of each file
+  - Modify color variables in `css/main.css` `:root` section (applies to all pages)
 - **Content:**
   - Replace placeholder content with your business information
-  - Update team information and photos in the case study page
+  - Update team information and photos in the index and case study pages
 - **Contact Form:**
   - The form uses [Formspree](https://formspree.io/) - update the `action` attribute with your endpoint
   - Modify form fields as needed for your business requirements
+- **Styling:**
+  - Edit `css/main.css` for global changes (colors, fonts, shared components)
+  - Edit page-specific CSS files for individual page customizations
 - **SEO & Social:**
   - Update meta tags, JSON-LD structured data, and Open Graph tags
   - Replace URLs and business information with your details
 
 ## Technical Features
-- **Self-Contained Pages**: All CSS and JavaScript inline - no external dependencies
-- **Fast Loading**: Optimized for speed with minimal HTTP requests
-- **Modern CSS**: CSS Grid, Flexbox, custom properties, and animations
+- **Modular CSS Architecture**: Shared main.css with page-specific overrides for maintainability
+- **Fast Loading**: Optimized CSS loading with shared caching and minimal HTTP requests
+- **Modern CSS**: CSS Grid, Flexbox, custom properties, and smooth animations
 - **Vanilla JavaScript**: No frameworks - pure JS for scroll animations and form handling
 - **Cross-Browser**: Works in all modern browsers with graceful fallbacks
 - **Mobile Optimized**: Responsive design tested on all device sizes
+- **SEO Ready**: Optimized meta tags, structured data, and semantic HTML
 
 ## Deployment
 
@@ -117,9 +136,9 @@ This project uses a **self-contained approach** with inline styles and scripts:
    - GitHub Pages will automatically handle SSL certificates
 
 ### Alternative Hosting
-- **Netlify:** Drag and drop the files for instant deployment
-- **Vercel:** Connect GitHub repository for automatic deployments
-- **Traditional Hosting:** Upload files via FTP to any web server
+- **Netlify:** Upload the entire folder including CSS/JS files for instant deployment
+- **Vercel:** Connect GitHub repository for automatic deployments with full file structure
+- **Traditional Hosting:** Upload all files via FTP to any web server maintaining folder structure
 3. **Domain:**
    - Point your custom domain (e.g., `synopustech.com`) to your host
 
