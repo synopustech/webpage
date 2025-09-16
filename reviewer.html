@@ -231,7 +231,7 @@
         </div>
 
         <h6 class="mt-4">What “Toggle Explanation” does</h6>
-        <p>When the answer is visible, “Toggle Explanation” shows an extra line of context tailored to the current deck—why and when you’d use the command or query.</p>
+        <p>When the answer is visible, “Toggle Explanation” shows an extra line of context for the current card (fallback to deck explanation if missing).</p>
 
         <h6 class="mt-4">Keyboard shortcuts</h6>
         <ul>
@@ -255,78 +255,78 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <script>
-      // Flashcards data (Unix, SQL, Git, Tomcat, API, DataHub - API, DataHub - SQL)
+      // Flashcards data with per-card explanations ("explain")
       window.FLASHCARDS = [
         // Unix
-        { id: "unix_ctx_1", category: "Unix", q: "Check current user, hostname, date/time, and uptime quickly.", a: "Use:\\n\\n```bash\\nwhoami; hostname -f; date; uptime\\n```" },
-        { id: "unix_os_2", category: "Unix", q: "Show OS release and kernel details.", a: "Use:\\n\\n```bash\\ncat /etc/os-release; uname -a\\n```" },
-        { id: "unix_systemd_3", category: "Unix", q: "Service status and follow last 2 hours of errors for a systemd unit (e.g., datahub).", a: "Use:\\n\\n```bash\\nsystemctl status datahub\\njournalctl -u datahub -S \\\"2 hours ago\\\" -p err..alert\\njournalctl -u datahub -f\\n```" },
-        { id: "unix_port_4", category: "Unix", q: "Find which process is listening on TCP port 8080.", a: "Use:\\n\\n```bash\\nsudo lsof -iTCP:8080 -sTCP:LISTEN -n -P\\n# or\\nss -ltnp | grep :8080\\n```" },
-        { id: "unix_logs_5", category: "Unix", q: "Search application logs recursively for 'timeout' or 'connection refused' with context lines.", a: "Use:\\n\\n```bash\\ngrep -RIn --exclude-dir=.git -E \\\"timeout|refused\\\" -C2 /var/log/app 2>/dev/null | less -R\\n```" },
-        { id: "unix_disk_6", category: "Unix", q: "Check disk usage and find largest log directories.", a: "Use:\\n\\n```bash\\ndf -hT\\ndu -sh /var/log/* | sort -h | tail\\n```" },
-        { id: "unix_net_7", category: "Unix", q: "Test TCP connectivity to example.com:443 and check DNS resolution.", a: "Use:\\n\\n```bash\\nnc -zv example.com 443\\n# DNS\\ndig example.com +short\\n```" },
-        { id: "unix_tls_8", category: "Unix", q: "Inspect TLS certificate expiry of an HTTPS endpoint.", a: "Use:\\n\\n```bash\\nopenssl s_client -connect api.example.com:443 -servername api.example.com </dev/null \\\\n  | openssl x509 -noout -dates -subject -issuer\\n```" },
-        { id: "unix_jvm_9", category: "Unix", q: "Grab a quick Java thread dump for PID 1234.", a: "Use:\\n\\n```bash\\njstack 1234 > /tmp/tdump.txt\\n# or\\nkill -3 1234   # writes to catalina.out\\n```" },
-        { id: "unix_bg_10", category: "Unix", q: "Run a script in background and keep it alive after logout.", a: "Use:\\n\\n```bash\\nnohup ./run.sh > app.out 2>&1 &\\ndisown\\n```" },
+        { id: "unix_ctx_1", category: "Unix", q: "Check current user, hostname, date/time, and uptime quickly.", a: "Use:\\n\\n```bash\\nwhoami; hostname -f; date; uptime\\n```", explain: "Establish baseline context on a host—useful when you’ve SSH’d through jump boxes or are on shared servers." },
+        { id: "unix_os_2", category: "Unix", q: "Show OS release and kernel details.", a: "Use:\\n\\n```bash\\ncat /etc/os-release; uname -a\\n```", explain: "Package names, systemd availability, and tuning flags differ by distro/kernel; this guides your next commands." },
+        { id: "unix_systemd_3", category: "Unix", q: "Service status and follow last 2 hours of errors for a systemd unit (e.g., datahub).", a: "Use:\\n\\n```bash\\nsystemctl status datahub\\njournalctl -u datahub -S \\\"2 hours ago\\\" -p err..alert\\njournalctl -u datahub -f\\n```", explain: "Confirms whether the app is up and if recent restarts or errors correlate with the incident window." },
+        { id: "unix_port_4", category: "Unix", q: "Find which process is listening on TCP port 8080.", a: "Use:\\n\\n```bash\\nsudo lsof -iTCP:8080 -sTCP:LISTEN -n -P\\n# or\\nss -ltnp | grep :8080\\n```", explain: "Validates that Tomcat/JBoss (or the right process) owns the expected port and no port conflicts exist." },
+        { id: "unix_logs_5", category: "Unix", q: "Search application logs recursively for 'timeout' or 'connection refused' with context lines.", a: "Use:\\n\\n```bash\\ngrep -RIn --exclude-dir=.git -E \\\"timeout|refused\\\" -C2 /var/log/app 2>/dev/null | less -R\\n```", explain: "Quickly surfaces error clusters and nearby context without opening huge log files." },
+        { id: "unix_disk_6", category: "Unix", q: "Check disk usage and find largest log directories.", a: "Use:\\n\\n```bash\\ndf -hT\\ndu -sh /var/log/* | sort -h | tail\\n```", explain: "Disk pressure commonly causes cascading failures (can’t write logs/temp). Find and clear offenders." },
+        { id: "unix_net_7", category: "Unix", q: "Test TCP connectivity to example.com:443 and check DNS resolution.", a: "Use:\\n\\n```bash\\nnc -zv example.com 443\\n# DNS\\ndig example.com +short\\n```", explain: "Differentiates DNS issues from network egress/firewall problems when APIs fail." },
+        { id: "unix_tls_8", category: "Unix", q: "Inspect TLS certificate expiry of an HTTPS endpoint.", a: "Use:\\n\\n```bash\\nopenssl s_client -connect api.example.com:443 -servername api.example.com </dev/null \\\\n  | openssl x509 -noout -dates -subject -issuer\\n```", explain: "Catches frequent production incidents: expired certs, wrong SNI, or missing SANs." },
+        { id: "unix_jvm_9", category: "Unix", q: "Grab a quick Java thread dump for PID 1234.", a: "Use:\\n\\n```bash\\njstack 1234 > /tmp/tdump.txt\\n# or\\nkill -3 1234   # writes to catalina.out\\n```", explain: "For deadlocks/high CPU, thread dumps show blocked threads and hotspots without restarting." },
+        { id: "unix_bg_10", category: "Unix", q: "Run a script in background and keep it alive after logout.", a: "Use:\\n\\n```bash\\nnohup ./run.sh > app.out 2>&1 &\\ndisown\\n```", explain: "Useful for long-running backfills or diagnostics on servers without tmux/screen." },
 
         // SQL
-        { id: "sql_latest_1", category: "SQL", q: "Latest close price per instrument using a window function.", a: "Use:\\n\\n```sql\\nWITH r AS (\\n  SELECT p.*, ROW_NUMBER() OVER (PARTITION BY instrument_id ORDER BY price_date DESC) rn\\n  FROM prices p\\n)\\nSELECT instrument_id, price_date, px_close FROM r WHERE rn = 1;\\n```" },
-        { id: "sql_ma5_2", category: "SQL", q: "Compute 5-day moving average close per instrument.", a: "Use:\\n\\n```sql\\nSELECT instrument_id, price_date,\\n       AVG(px_close) OVER (\\n         PARTITION BY instrument_id\\n         ORDER BY price_date\\n         ROWS BETWEEN 4 PRECEDING AND CURRENT ROW\\n       ) AS ma_5\\nFROM prices;\\n```" },
-        { id: "sql_spike_3", category: "SQL", q: "Detect >20% day-over-day price spikes.", a: "Use:\\n\\n```sql\\nSELECT instrument_id, price_date, px_close,\\n       LAG(px_close) OVER (PARTITION BY instrument_id ORDER BY price_date) AS prev_close\\nFROM prices\\n-- Filter rows where ABS(px_close - prev_close) / NULLIF(prev_close,0) > 0.2\\n```" },
-        { id: "sql_topk_4", category: "SQL", q: "Top-10 instruments by 5-day notional traded.", a: "Use:\\n\\n```sql\\nSELECT instrument_id, SUM(qty*price) AS notional_5d\\nFROM trades\\nWHERE trade_dt >= CURRENT_DATE - INTERVAL '5 day'\\nGROUP BY instrument_id\\nORDER BY notional_5d DESC\\nLIMIT 10;\\n```" },
-        { id: "sql_isin_regex_5", category: "SQL", q: "Validate ISIN format using regex.", a: "Use:\\n\\n```sql\\n-- PostgreSQL\\nSELECT isin FROM instruments WHERE isin ~ '^[A-Z]{2}[A-Z0-9]{9}[0-9]$';\\n-- Oracle: REGEXP_LIKE(isin, '^[A-Z]{2}[A-Z0-9]{9}[0-9]$')\\n```" },
-        { id: "sql_merge_6", category: "SQL", q: "Upsert (merge) staging into golden copy by (isin, mic).", a: "Use:\\n\\n```sql\\nMERGE INTO instruments t\\nUSING staging s\\nON (t.isin = s.isin AND t.mic = s.mic)\\nWHEN MATCHED THEN UPDATE SET t.ticker = s.ticker, t.currency = s.currency\\nWHEN NOT MATCHED THEN INSERT (isin, mic, ticker, currency)\\nVALUES (s.isin, s.mic, s.ticker, s.currency);\\n```" },
-        { id: "sql_orphan_7", category: "SQL", q: "Find orphan trades with no matching instrument.", a: "Use:\\n\\n```sql\\nSELECT t.trade_id\\nFROM trades t\\nLEFT JOIN instruments i ON i.instrument_id = t.instrument_id\\nWHERE i.instrument_id IS NULL;\\n```" },
-        { id: "sql_dedupe_8", category: "SQL", q: "Deduplicate staging by (isin, mic, eff_date) keeping latest load_ts.", a: "Pattern:\\n\\n```sql\\nDELETE FROM staging s\\nWHERE s.rowid NOT IN (\\n  SELECT MAX(rowid)\\n  FROM staging\\n  GROUP BY isin, mic, eff_date\\n);\\n```" },
+        { id: "sql_latest_1", category: "SQL", q: "Latest close price per instrument using a window function.", a: "Use:\\n\\n```sql\\nWITH r AS (\\n  SELECT p.*, ROW_NUMBER() OVER (PARTITION BY instrument_id ORDER BY price_date DESC) rn\\n  FROM prices p\\n)\\nSELECT instrument_id, price_date, px_close FROM r WHERE rn = 1;\\n```", explain: "Ensures you’re referencing the freshest record per instrument—avoids stale joins." },
+        { id: "sql_ma5_2", category: "SQL", q: "Compute 5-day moving average close per instrument.", a: "Use:\\n\\n```sql\\nSELECT instrument_id, price_date,\\n       AVG(px_close) OVER (\\n         PARTITION BY instrument_id\\n         ORDER BY price_date\\n         ROWS BETWEEN 4 PRECEDING AND CURRENT ROW\\n       ) AS ma_5\\nFROM prices;\\n```", explain: "Smooths daily volatility; common in sanity checks and dashboards." },
+        { id: "sql_spike_3", category: "SQL", q: "Detect >20% day-over-day price spikes.", a: "Use:\\n\\n```sql\\nSELECT instrument_id, price_date, px_close,\\n       LAG(px_close) OVER (PARTITION BY instrument_id ORDER BY price_date) AS prev_close\\nFROM prices\\n-- Filter rows where ABS(px_close - prev_close) / NULLIF(prev_close,0) > 0.2\\n```", explain: "Flags anomalies that may be feed errors or corporate actions not yet processed." },
+        { id: "sql_topk_4", category: "SQL", q: "Top-10 instruments by 5-day notional traded.", a: "Use:\\n\\n```sql\\nSELECT instrument_id, SUM(qty*price) AS notional_5d\\nFROM trades\\nWHERE trade_dt >= CURRENT_DATE - INTERVAL '5 day'\\nGROUP BY instrument_id\\nORDER BY notional_5d DESC\\nLIMIT 10;\\n```", explain: "Helps focus triage on high-impact instruments first." },
+        { id: "sql_isin_regex_5", category: "SQL", q: "Validate ISIN format using regex.", a: "Use:\\n\\n```sql\\n-- PostgreSQL\\nSELECT isin FROM instruments WHERE isin ~ '^[A-Z]{2}[A-Z0-9]{9}[0-9]$';\\n-- Oracle: REGEXP_LIKE(isin, '^[A-Z]{2}[A-Z0-9]{9}[0-9]$')\\n```", explain: "Cheap, first-line validation before the Luhn algorithm check." },
+        { id: "sql_merge_6", category: "SQL", q: "Upsert (merge) staging into golden copy by (isin, mic).", a: "Use:\\n\\n```sql\\nMERGE INTO instruments t\\nUSING staging s\\nON (t.isin = s.isin AND t.mic = s.mic)\\nWHEN MATCHED THEN UPDATE SET t.ticker = s.ticker, t.currency = s.currency\\nWHEN NOT MATCHED THEN INSERT (isin, mic, ticker, currency)\\nVALUES (s.isin, s.mic, s.ticker, s.currency);\\n```", explain: "Prevents duplicates and keeps golden copy current with minimal locking." },
+        { id: "sql_orphan_7", category: "SQL", q: "Find orphan trades with no matching instrument.", a: "Use:\\n\\n```sql\\nSELECT t.trade_id\\nFROM trades t\\nLEFT JOIN instruments i ON i.instrument_id = t.instrument_id\\nWHERE i.instrument_id IS NULL;\\n```", explain: "Reveals referential integrity breaks—often due to late reference loads or key mismatches." },
+        { id: "sql_dedupe_8", category: "SQL", q: "Deduplicate staging by (isin, mic, eff_date) keeping latest load_ts.", a: "Pattern:\\n\\n```sql\\nDELETE FROM staging s\\nWHERE s.rowid NOT IN (\\n  SELECT MAX(rowid)\\n  FROM staging\\n  GROUP BY isin, mic, eff_date\\n);\\n```", explain: "Ensures stable mastering inputs when vendors resend overlapping data." },
 
         // Git
-        { id: "git_status_1", category: "Git", q: "Show working tree changes and staged changes.", a: "Use:\\n\\n```bash\\ngit status\\ngit diff\\ngit diff --staged\\n```" },
-        { id: "git_branch_2", category: "Git", q: "Create a feature branch and push it upstream.", a: "Use:\\n\\n```bash\\ngit checkout -b feat/fix-timeout\\ngit push -u origin feat/fix-timeout\\n```" },
-        { id: "git_revert_3", category: "Git", q: "Revert a specific commit on main safely (no history rewrite).", a: "Use:\\n\\n```bash\\ngit revert <commit-sha>\\n```" },
-        { id: "git_rebase_4", category: "Git", q: "Pull latest with rebase to keep linear history.", a: "Use:\\n\\n```bash\\ngit pull --rebase\\n```" },
-        { id: "git_reset_5", category: "Git", q: "Hard reset local branch to match remote origin/main.", a: "Use:\\n\\n```bash\\ngit fetch origin\\ngit reset --hard origin/main\\n```" },
-        { id: "git_bisect_6", category: "Git", q: "Start a bisect session to find a bad commit.", a: "Use:\\n\\n```bash\\ngit bisect start\\ngit bisect bad\\ngit bisect good <good-sha>\\n```" },
+        { id: "git_status_1", category: "Git", q: "Show working tree changes and staged changes.", a: "Use:\\n\\n```bash\\ngit status\\ngit diff\\ngit diff --staged\\n```", explain: "Baseline before committing—avoid accidentally bundling unrelated changes." },
+        { id: "git_branch_2", category: "Git", q: "Create a feature branch and push it upstream.", a: "Use:\\n\\n```bash\\ngit checkout -b feat/fix-timeout\\ngit push -u origin feat/fix-timeout\\n```", explain: "Keeps production branches safe while you test fixes." },
+        { id: "git_revert_3", category: "Git", q: "Revert a specific commit on main safely (no history rewrite).", a: "Use:\\n\\n```bash\\ngit revert <commit-sha>\\n```", explain: "Best option on shared branches—produces a new commit that undoes the bad one." },
+        { id: "git_rebase_4", category: "Git", q: "Pull latest with rebase to keep linear history.", a: "Use:\\n\\n```bash\\ngit pull --rebase\\n```", explain: "Avoids noisy merge commits when frequently syncing with origin." },
+        { id: "git_reset_5", category: "Git", q: "Hard reset local branch to match remote origin/main.", a: "Use:\\n\\n```bash\\ngit fetch origin\\ngit reset --hard origin/main\\n```", explain: "Blows away local changes—use carefully when you need a clean slate." },
+        { id: "git_bisect_6", category: "Git", q: "Start a bisect session to find a bad commit.", a: "Use:\\n\\n```bash\\ngit bisect start\\ngit bisect bad\\ngit bisect good <good-sha>\\n```", explain: "Binary search for regressions—saves time in large histories." },
 
         // Tomcat
-        { id: "tomcat_dirs_1", category: "Tomcat", q: "Which Tomcat directories matter most in support?", a: "Know: `$CATALINA_BASE/bin conf/lib logs/webapps temp/work`" },
-        { id: "tomcat_conf_2", category: "Tomcat", q: "Key Tomcat config files to check first.", a: "`conf/server.xml` (connectors/SSL), `conf/web.xml` (defaults), `conf/context.xml` (datasources)" },
-        { id: "tomcat_jvm_3", category: "Tomcat", q: "Set heap and GC options for Tomcat.", a: "Use setenv.sh or service env:\\n\\n```bash\\nJAVA_OPTS=\\\"-Xms2g -Xmx2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dfile.encoding=UTF-8\\\"\\n```" },
-        { id: "tomcat_logs_4", category: "Tomcat", q: "Where do logs usually go and how to follow?", a: "`logs/catalina.out` and app logs; follow with:\\n\\n```bash\\ntail -F /var/log/tomcat*/catalina.out\\n```" },
-        { id: "tomcat_threads_5", category: "Tomcat", q: "Increase HTTP connector threads and queue.", a: "In server.xml `<Connector ... maxThreads=\\\"300\\\" acceptCount=\\\"100\\\" />`" },
-        { id: "tomcat_threaddump_6", category: "Tomcat", q: "Generate a thread dump for Tomcat process quickly.", a: "Use:\\n\\n```bash\\njstack <pid> > /tmp/tdump.txt\\n# or\\nkill -3 <pid>\\n```" },
+        { id: "tomcat_dirs_1", category: "Tomcat", q: "Which Tomcat directories matter most in support?", a: "Know: `$CATALINA_BASE/bin conf/lib logs/webapps temp/work`", explain: "You’ll check logs, deploy WARs, and adjust configs in these places." },
+        { id: "tomcat_conf_2", category: "Tomcat", q: "Key Tomcat config files to check first.", a: "`conf/server.xml` (connectors/SSL), `conf/web.xml` (defaults), `conf/context.xml` (datasources)", explain: "Connector and datasource misconfigs are common causes of timeouts and pool exhaustion." },
+        { id: "tomcat_jvm_3", category: "Tomcat", q: "Set heap and GC options for Tomcat.", a: "Use setenv.sh or service env:\\n\\n```bash\\nJAVA_OPTS=\\\"-Xms2g -Xmx2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dfile.encoding=UTF-8\\\"\\n```", explain: "Right-size heap and GC to reduce long pauses and OOMs under load." },
+        { id: "tomcat_logs_4", category: "Tomcat", q: "Where do logs usually go and how to follow?", a: "`logs/catalina.out` and app logs; follow with:\\n\\n```bash\\ntail -F /var/log/tomcat*/catalina.out\\n```", explain: "Catalina shows server-level events; apps often log separately (Logback/Log4j)." },
+        { id: "tomcat_threads_5", category: "Tomcat", q: "Increase HTTP connector threads and queue.", a: "In server.xml `<Connector ... maxThreads=\\\"300\\\" acceptCount=\\\"100\\\" />`", explain: "Prevents request backlog during spikes; balance with downstream capacity." },
+        { id: "tomcat_threaddump_6", category: "Tomcat", q: "Generate a thread dump for Tomcat process quickly.", a: "Use:\\n\\n```bash\\njstack <pid> > /tmp/tdump.txt\\n# or\\nkill -3 <pid>\\n```", explain: "Diagnose deadlocks and bottlenecks (e.g., DB pool waits) without restart." },
 
         // API
-        { id: "api_status_1", category: "API", q: "Meaning of 200, 401, 403, 429, 503 in HTTP status codes.", a: "200 OK; 401 Unauthorized (auth missing/expired); 403 Forbidden (insufficient scope); 429 Too Many Requests; 503 Service Unavailable." },
-        { id: "api_idempotency_2", category: "API", q: "Which HTTP methods should be idempotent and how to safely retry?", a: "GET/PUT/DELETE should be idempotent. Retry idempotent requests with exponential backoff + jitter on 429/5xx. Use idempotency keys for POST if needed." },
-        { id: "api_curl_3", category: "API", q: "cURL template to call a token-protected JSON API.", a: "Use:\\n\\n```bash\\ncurl -v -H \\\"Authorization: Bearer $TOKEN\\\" -H \\\"Accept: application/json\\\" \\\\\\n     \\\"https://api.example.com/v1/resources?limit=10\\\"\\n```" },
-        { id: "api_pagination_4", category: "API", q: "Common pagination patterns to recognize.", a: "Offset paging `?page=1&per_page=50` and cursor paging with a `next` token in body or Link headers." },
-        { id: "api_tls_5", category: "API", q: "Check TLS chain and expiry for an API endpoint.", a: "Use:\\n\\n```bash\\nopenssl s_client -connect api.example.com:443 -servername api.example.com -showcerts </dev/null\\n```" },
-        { id: "api_soap_6", category: "API", q: "SOAP basics you need for support.", a: "WSDL defines operations; SOAPAction header; XML Envelope/Body; inspect SOAP Faults and namespaces; check Content-Type: application/soap+xml." },
+        { id: "api_status_1", category: "API", q: "Meaning of 200, 401, 403, 429, 503 in HTTP status codes.", a: "200 OK; 401 Unauthorized (auth missing/expired); 403 Forbidden (insufficient scope); 429 Too Many Requests; 503 Service Unavailable.", explain: "Fast triage: auth vs permission vs throttling vs server-side outage." },
+        { id: "api_idempotency_2", category: "API", q: "Which HTTP methods should be idempotent and how to safely retry?", a: "GET/PUT/DELETE should be idempotent. Retry idempotent requests with exponential backoff + jitter on 429/5xx. Use idempotency keys for POST if needed.", explain: "Prevents duplicate side-effects during transient failures and retries." },
+        { id: "api_curl_3", category: "API", q: "cURL template to call a token-protected JSON API.", a: "Use:\\n\\n```bash\\ncurl -v -H \\\"Authorization: Bearer $TOKEN\\\" -H \\\"Accept: application/json\\\" \\\\\\n     \\\"https://api.example.com/v1/resources?limit=10\\\"\\n```", explain: "Baseline call to reproduce client issues and capture headers/status." },
+        { id: "api_pagination_4", category: "API", q: "Common pagination patterns to recognize.", a: "Offset paging `?page=1&per_page=50` and cursor paging with a `next` token in body or Link headers.", explain: "Incorrect pagination often looks like missing data or duplicates." },
+        { id: "api_tls_5", category: "API", q: "Check TLS chain and expiry for an API endpoint.", a: "Use:\\n\\n```bash\\nopenssl s_client -connect api.example.com:443 -servername api.example.com -showcerts </dev/null\\n```", explain: "Validates cert chain, SNI, and expiry on the wire—common root causes." },
+        { id: "api_soap_6", category: "API", q: "SOAP basics you need for support.", a: "WSDL defines operations; SOAPAction header; XML Envelope/Body; inspect SOAP Faults and namespaces; check Content-Type: application/soap+xml.", explain: "Namespace or SOAPAction mismatches produce opaque faults; compare to WSDL." },
 
-        // DataHub - API
-        { id: "dh_api_trigger_1", category: "DataHub - API", q: "Trigger a daily mastering job with business date via REST.", a: "Pattern (example endpoint):\\n\\n```bash\\ncurl -sS -X POST \\\"$HUB/api/jobs/reference-mastering-daily:run\\\" \\\\\\n  -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"params\\\":{\\\"biz_date\\\":\\\"2025-09-15\\\"}}'\\n```" },
-        { id: "dh_api_poll_2", category: "DataHub - API", q: "Poll job run status until completion.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\"$HUB/api/runs/$RUN_ID\\\"\\n# States: QUEUED | RUNNING | SUCCEEDED | FAILED | CANCELLED\\n```" },
-        { id: "dh_api_rules_3", category: "DataHub - API", q: "Fetch data-quality results (rejects by rule) for a run.", a: "Pattern (example):\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/runs/$RUN_ID/dq/results?summary=true\\\"\\n```" },
-        { id: "dh_api_reprocess_4", category: "DataHub - API", q: "Reprocess quarantined records after a mapping fix.", a: "Pattern:\\n\\n```bash\\ncurl -sS -X POST -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"rule\\\":\\\"ISIN_LUHN\\\",\\\"action\\\":\\\"reprocess\\\",\\\"since\\\":\\\"2025-09-15\\\"}' \\\\\\n  \\\"$HUB/api/quarantine:reprocess\\\"\\n```" },
-        { id: "dh_api_publish_5", category: "DataHub - API", q: "Verify publish step outputs and distribution status.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/runs/$RUN_ID/outputs\\\"\\n# Check zero-output publishes and downstream delivery status\\n```" },
-        { id: "dh_api_auth_6", category: "DataHub - API", q: "Common auth pitfalls when calling DataHub APIs.", a: "Expired token, missing scopes, wrong audience; clock skew on JWT; environment/base URL mix-ups; proxy/egress blocked." },
-        { id: "dh_api_schema_7", category: "DataHub - API", q: "Detect vendor schema drift before bulk ingest.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/schemas/vendors/bbg/sec:compare?date=2025-09-15\\\"\\n```" },
-        { id: "dh_api_lineage_8", category: "DataHub - API", q: "Get lineage for a published instrument record.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/lineage/instruments?isin=US0378331005&mic=XNAS\\\"\\n```" },
+        // DataHub - API (patterns; adapt to your environment)
+        { id: "dh_api_trigger_1", category: "DataHub - API", q: "Trigger a daily mastering job with business date via REST.", a: "Pattern (example endpoint):\\n\\n```bash\\ncurl -sS -X POST \\\"$HUB/api/jobs/reference-mastering-daily:run\\\" \\\\\\n  -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"params\\\":{\\\"biz_date\\\":\\\"2025-09-15\\\"}}'\\n```", explain: "Automates re-runs for specific business dates during incidents or backfills." },
+        { id: "dh_api_poll_2", category: "DataHub - API", q: "Poll job run status until completion.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\"$HUB/api/runs/$RUN_ID\\\"\\n# States: QUEUED | RUNNING | SUCCEEDED | FAILED | CANCELLED\\n```", explain: "Drive runbooks programmatically and stop early when a run fails." },
+        { id: "dh_api_rules_3", category: "DataHub - API", q: "Fetch data-quality results (rejects by rule) for a run.", a: "Pattern (example):\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/runs/$RUN_ID/dq/results?summary=true\\\"\\n```", explain: "Identifies which rule caused mass rejects (e.g., ISIN_LUHN spike)." },
+        { id: "dh_api_reprocess_4", category: "DataHub - API", q: "Reprocess quarantined records after a mapping fix.", a: "Pattern:\\n\\n```bash\\ncurl -sS -X POST -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"rule\\\":\\\"ISIN_LUHN\\\",\\\"action\\\":\\\"reprocess\\\",\\\"since\\\":\\\"2025-09-15\\\"}' \\\\\\n  \\\"$HUB/api/quarantine:reprocess\\\"\\n```", explain: "Use with care and audit—ensures fixes propagate without full reingest." },
+        { id: "dh_api_publish_5", category: "DataHub - API", q: "Verify publish step outputs and distribution status.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/runs/$RUN_ID/outputs\\\"\\n# Check zero-output publishes and downstream delivery status\\n```", explain: "Confirms whether golden copy actually produced and distributed records." },
+        { id: "dh_api_auth_6", category: "DataHub - API", q: "Common auth pitfalls when calling DataHub APIs.", a: "Expired token, missing scopes, wrong audience; clock skew on JWT; environment/base URL mix-ups; proxy/egress blocked.", explain: "Most API incidents are auth/network; check expiry and scopes first." },
+        { id: "dh_api_schema_7", category: "DataHub - API", q: "Detect vendor schema drift before bulk ingest.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/schemas/vendors/bbg/sec:compare?date=2025-09-15\\\"\\n```", explain: "Catches header/column changes early to avoid mass reject events." },
+        { id: "dh_api_lineage_8", category: "DataHub - API", q: "Get lineage for a published instrument record.", a: "Pattern:\\n\\n```bash\\ncurl -sS -H \\\"Authorization: Bearer $TOKEN\\\" \\\\\\n  \\\"$HUB/api/lineage/instruments?isin=US0378331005&mic=XNAS\\\"\\n```", explain: "Trace back to the vendor record and steps—useful for RCA with clients." },
 
         // DataHub - SQL
-        { id: "dh_sql_latest_1", category: "DataHub - SQL", q: "Compute latest price per instrument in a transform step.", a: "Use:\\n\\n```sql\\nWITH r AS (\\n  SELECT p.*, ROW_NUMBER() OVER (PARTITION BY instrument_id ORDER BY price_date DESC) rn\\n  FROM prices p\\n)\\nINSERT INTO analytics.latest_prices (instrument_id, price_date, px_close)\\nSELECT instrument_id, price_date, px_close FROM r WHERE rn = 1;\\n```" },
-        { id: "dh_sql_uniq_2", category: "DataHub - SQL", q: "Enforce uniqueness of (isin, mic) during mastering.", a: "Approach:\\n\\n- Add a uniqueness rule in DQ to reject duplicates.\\n- Alternatively enforce a unique index on golden copy table.\\n\\n```sql\\nCREATE UNIQUE INDEX IF NOT EXISTS ux_instruments_isin_mic ON instruments(isin, mic);\\n```" },
-        { id: "dh_sql_quarantine_3", category: "DataHub - SQL", q: "Summarize quarantine rejects by rule and source for a business date.", a: "Use:\\n\\n```sql\\nSELECT biz_date, rule_id, source, COUNT(*) AS rejects\\nFROM dq_quarantine\\nWHERE biz_date = DATE '2025-09-15'\\nGROUP BY biz_date, rule_id, source\\nORDER BY rejects DESC;\\n```" },
-        { id: "dh_sql_merge_4", category: "DataHub - SQL", q: "Merge staging into instruments (golden copy) with survivorship preference.", a: "Use:\\n\\n```sql\\nMERGE INTO instruments t\\nUSING (\\n  SELECT s.*,\\n         ROW_NUMBER() OVER (PARTITION BY isin, mic ORDER BY eff_date DESC, source = 'BBG' DESC) as pref\\n  FROM staging_instruments s\\n) p\\nON (t.isin = p.isin AND t.mic = p.mic)\\nWHEN MATCHED AND p.pref = 1 THEN UPDATE SET\\n  ticker = p.ticker, currency = p.currency\\nWHEN NOT MATCHED AND p.pref = 1 THEN INSERT (isin, mic, ticker, currency)\\nVALUES (p.isin, p.mic, p.ticker, p.currency);\\n```" },
-        { id: "dh_sql_spike_5", category: "DataHub - SQL", q: "Flag price spikes > 20% DoD and route to exceptions.", a: "Use:\\n\\n```sql\\nWITH lagged AS (\\n  SELECT instrument_id, price_date, px_close,\\n         LAG(px_close) OVER (PARTITION BY instrument_id ORDER BY price_date) AS prev_close\\n  FROM prices\\n)\\nINSERT INTO price_exceptions (instrument_id, price_date, reason)\\nSELECT instrument_id, price_date, 'SPIKE_20PC'\\nFROM lagged\\nWHERE prev_close IS NOT NULL AND ABS(px_close - prev_close) / NULLIF(prev_close,0) > 0.2;\\n```" },
-        { id: "dh_sql_isin_6", category: "DataHub - SQL", q: "ISIN validation approach in SQL.", a: "Use regex for format and a UDF for Luhn. Example:\\n\\n```sql\\nSELECT * FROM instruments WHERE isin ~ '^[A-Z]{2}[A-Z0-9]{9}[0-9]$' AND luhn_isin(isin);\\n```" },
-        { id: "dh_sql_audit_7", category: "DataHub - SQL", q: "Query run audit trail for record counts by step.", a: "Use:\\n\\n```sql\\nSELECT step, rows_in, rows_out, errors\\nFROM run_audit\\nWHERE run_id = :run_id\\nORDER BY sequence;\\n```" },
-        { id: "dh_sql_vendor_consensus_8", category: "DataHub - SQL", q: "Detect pricing anomalies via vendor consensus before mastering.", a: "Use:\\n\\n```sql\\nSELECT key, AVG(price) AS avg_px, STDDEV_POP(price) AS stdev, COUNT(*) vendors\\nFROM vendor_prices\\nWHERE biz_date = DATE '2025-09-15'\\nGROUP BY key\\nHAVING COUNT(*) >= 2 AND STDDEV_POP(price) > 5 * NULLIF(AVG(price),0) / 100.0;\\n```" }
+        { id: "dh_sql_latest_1", category: "DataHub - SQL", q: "Compute latest price per instrument in a transform step.", a: "Use:\\n\\n```sql\\nWITH r AS (\\n  SELECT p.*, ROW_NUMBER() OVER (PARTITION BY instrument_id ORDER BY price_date DESC) rn\\n  FROM prices p\\n)\\nINSERT INTO analytics.latest_prices (instrument_id, price_date, px_close)\\nSELECT instrument_id, price_date, px_close FROM r WHERE rn = 1;\\n```", explain: "Materializes a latest snapshot table for fast downstream joins." },
+        { id: "dh_sql_uniq_2", category: "DataHub - SQL", q: "Enforce uniqueness of (isin, mic) during mastering.", a: "Approach:\\n\\n- Add a uniqueness rule in DQ to reject duplicates.\\n- Alternatively enforce a unique index on golden copy table.\\n\\n```sql\\nCREATE UNIQUE INDEX IF NOT EXISTS ux_instruments_isin_mic ON instruments(isin, mic);\\n```", explain: "Prevents duplicate identities that would break downstream systems." },
+        { id: "dh_sql_quarantine_3", category: "DataHub - SQL", q: "Summarize quarantine rejects by rule and source for a business date.", a: "Use:\\n\\n```sql\\nSELECT biz_date, rule_id, source, COUNT(*) AS rejects\\nFROM dq_quarantine\\nWHERE biz_date = DATE '2025-09-15'\\nGROUP BY biz_date, rule_id, source\\nORDER BY rejects DESC;\\n```", explain: "Prioritizes fixes by impact and identifies problematic vendors." },
+        { id: "dh_sql_merge_4", category: "DataHub - SQL", q: "Merge staging into instruments (golden copy) with survivorship preference.", a: "Use:\\n\\n```sql\\nMERGE INTO instruments t\\nUSING (\\n  SELECT s.*,\\n         ROW_NUMBER() OVER (PARTITION BY isin, mic ORDER BY eff_date DESC, source = 'BBG' DESC) as pref\\n  FROM staging_instruments s\\n) p\\nON (t.isin = p.isin AND t.mic = p.mic)\\nWHEN MATCHED AND p.pref = 1 THEN UPDATE SET\\n  ticker = p.ticker, currency = p.currency\\nWHEN NOT MATCHED AND p.pref = 1 THEN INSERT (isin, mic, ticker, currency)\\nVALUES (p.isin, p.mic, p.ticker, p.currency);\\n```", explain: "Implements a simple survivorship policy (latest-effective, preferred source) directly in SQL." },
+        { id: "dh_sql_spike_5", category: "DataHub - SQL", q: "Flag price spikes > 20% DoD and route to exceptions.", a: "Use:\\n\\n```sql\\nWITH lagged AS (\\n  SELECT instrument_id, price_date, px_close,\\n         LAG(px_close) OVER (PARTITION BY instrument_id ORDER BY price_date) AS prev_close\\n  FROM prices\\n)\\nINSERT INTO price_exceptions (instrument_id, price_date, reason)\\nSELECT instrument_id, price_date, 'SPIKE_20PC'\\nFROM lagged\\nWHERE prev_close IS NOT NULL AND ABS(px_close - prev_close) / NULLIF(prev_close,0) > 0.2;\\n```", explain: "Separates suspect points to keep main pipelines flowing while you investigate." },
+        { id: "dh_sql_isin_6", category: "DataHub - SQL", q: "ISIN validation approach in SQL.", a: "Use regex for format and a UDF for Luhn. Example:\\n\\n```sql\\nSELECT * FROM instruments WHERE isin ~ '^[A-Z]{2}[A-Z0-9]{9}[0-9]$' AND luhn_isin(isin);\\n```", explain: "Two-step validation: cheap regex first, then proper check digit to minimize false accepts." },
+        { id: "dh_sql_audit_7", category: "DataHub - SQL", q: "Query run audit trail for record counts by step.", a: "Use:\\n\\n```sql\\nSELECT step, rows_in, rows_out, errors\\nFROM run_audit\\nWHERE run_id = :run_id\\nORDER BY sequence;\\n```", explain: "Shows exactly where rows dropped or errors spiked—pinpoints failing step." },
+        { id: "dh_sql_vendor_consensus_8", category: "DataHub - SQL", q: "Detect pricing anomalies via vendor consensus before mastering.", a: "Use:\\n\\n```sql\\nSELECT key, AVG(price) AS avg_px, STDDEV_POP(price) AS stdev, COUNT(*) vendors\\nFROM vendor_prices\\nWHERE biz_date = DATE '2025-09-15'\\nGROUP BY key\\nHAVING COUNT(*) >= 2 AND STDDEV_POP(price) > 5 * NULLIF(AVG(price),0) / 100.0;\\n```", explain: "Consensus checks surface outliers early; prevents bad points entering golden copy." }
       ];
     </script>
 
     <script>
-      // Flashcards App Logic (single page) with explanations
+      // Flashcards App Logic (single page) with per-card explanations
       (() => {
         const state = {
           allCards: window.FLASHCARDS || [],
@@ -350,7 +350,7 @@
           "DataHub - SQL": "Implement transforms and investigations: compute latest snapshots, enforce uniqueness, summarize quarantine rejects, apply survivorship, flag price spikes, and query audit trails for RCA."
         };
 
-        const inlineExplainByDeck = {
+        const deckFallbackExplain = {
           "Unix": "Why: Quickly determine if the issue is service, OS, network, or JVM. Use these first to narrow the blast radius before deep dives.",
           "SQL": "Why: Validates data freshness and quality. Window functions are essential for latest rows and day-over-day comparisons.",
           "Git": "Why: Keep main stable and audit-friendly. Prefer revert on shared branches; use bisect to locate problematic commits fast.",
@@ -444,7 +444,7 @@
           const filtered = cards.filter(c => {
             if (state.studyUnknownOnly && isKnown(c.id)) return false;
             if (!term) return true;
-            return c.q.toLowerCase().includes(term) || c.a.toLowerCase().includes(term);
+            return c.q.toLowerCase().includes(term) || c.a.toLowerCase().includes(term) || (c.explain || "").toLowerCase().includes(term);
           });
           state.filtered = filtered;
           state.currentIndex = 0;
@@ -472,7 +472,6 @@
 
           const html = marked.parse(card.a || "");
           els.answer.innerHTML = html;
-          // Highlight code in the answer only
           els.answer.querySelectorAll("pre code").forEach(block => {
             try { hljs.highlightElement(block); } catch {}
           });
@@ -480,10 +479,11 @@
           if (state.showAnswer) {
             els.flipper.classList.add("flipped");
             els.revealBtn.textContent = "Hide";
-            // Inline explanation (deck-level)
+            // Per-card explanation with deck fallback
             if (state.showInlineExplain) {
               els.inlineExplanation.classList.remove("d-none");
-              els.inlineExplanationText.textContent = inlineExplainByDeck[state.deckKey] || "No extra explanation available.";
+              const cardExplain = card.explain && card.explain.trim().length ? card.explain : null;
+              els.inlineExplanationText.textContent = cardExplain || deckFallbackExplain[state.deckKey] || "No extra explanation available.";
             } else {
               els.inlineExplanation.classList.add("d-none");
             }
@@ -638,7 +638,6 @@
               state.searchTerm = "";
               els.searchInput.value = "";
               filterCards();
-              // Close the offcanvas
               const canvasEl = document.getElementById("helpCanvas");
               const offcanvas = bootstrap.Offcanvas.getInstance(canvasEl);
               if (offcanvas) offcanvas.hide();
