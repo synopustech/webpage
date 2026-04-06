@@ -1,75 +1,86 @@
-// Scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+const siteHeader = document.querySelector('.site-header');
+const revealElements = document.querySelectorAll('.reveal');
+const contactForm = document.getElementById('contactForm');
+const successMessage = document.getElementById('success-message');
+const yearElement = document.getElementById('current-year');
 
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
+const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    {
+        threshold: 0.15,
+        rootMargin: '0px 0px -45px 0px'
+    }
+);
 
-// Observe all animated elements
-document.querySelectorAll('.animate-on-scroll, .animate-slide-left, .animate-slide-right, .animate-scale').forEach(el => {
-    observer.observe(el);
+revealElements.forEach((element, index) => {
+    element.style.transitionDelay = `${Math.min(index * 55, 260)}ms`;
+    revealObserver.observe(element);
 });
 
-// Back to top button functionality
-const goTopButton = document.querySelector('.go-top');
-
 window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        goTopButton.classList.add('show');
+    if (!siteHeader) {
+        return;
+    }
+
+    if (window.scrollY > 8) {
+        siteHeader.classList.add('scrolled');
     } else {
-        goTopButton.classList.remove('show');
+        siteHeader.classList.remove('scrolled');
     }
 });
 
-// Add smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        if (this.getAttribute('href') === '#') {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } else if (this.getAttribute('href').startsWith('#')) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (event) => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') {
+            return;
         }
+
+        const target = document.querySelector(href);
+        if (!target) {
+            return;
+        }
+
+        event.preventDefault();
+        target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     });
 });
 
-// Add parallax effect to header background with fade out
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const header = document.querySelector('header');
-    const hero = document.querySelector('.hero');
-    
-    if (header) {
-        // Parallax effect
-        header.style.transform = `translateY(${scrolled * 0.3}px)`;
-        
-        // Fade out effect when scrolling
-        const fadeStart = 100;
-        const fadeEnd = 400;
-        
-        if (scrolled <= fadeStart) {
-            header.style.opacity = '1';
-        } else if (scrolled >= fadeEnd) {
-            header.style.opacity = '0';
-        } else {
-            const opacity = 1 - ((scrolled - fadeStart) / (fadeEnd - fadeStart));
-            header.style.opacity = opacity;
+if (contactForm) {
+    contactForm.addEventListener('submit', () => {
+        const name = document.getElementById('name');
+        const subject = document.getElementById('formSubject');
+
+        if (!name || !subject) {
+            return;
         }
+
+        const timestamp = new Date().toLocaleString();
+        subject.value = `${name.value} - ${timestamp}`;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('submitted') === 'true' && successMessage) {
+        successMessage.hidden = false;
+        setTimeout(() => {
+            successMessage.hidden = true;
+            history.replaceState({}, document.title, `${window.location.pathname}#contact`);
+        }, 5000);
+    }
+
+    if (yearElement) {
+        yearElement.textContent = String(new Date().getFullYear());
     }
 });
