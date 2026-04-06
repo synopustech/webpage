@@ -53,17 +53,9 @@
 
         <!-- Desktop icons (shortcuts) -->
         <div class="desktop-icons">
-            <button class="desktop-shortcut" data-window="win-hero" aria-label="Open About SynOpusTech">
+            <button class="desktop-shortcut" data-window="win-about" aria-label="Open About SynOpusTech">
                 <div class="shortcut-icon">🏠</div>
                 <span class="shortcut-label">About</span>
-            </button>
-            <button class="desktop-shortcut" data-window="win-apps" aria-label="Open My Apps">
-                <div class="shortcut-icon">📦</div>
-                <span class="shortcut-label">My Apps</span>
-            </button>
-            <button class="desktop-shortcut" data-window="win-approach" aria-label="Open How I Build">
-                <div class="shortcut-icon">⚙️</div>
-                <span class="shortcut-label">How I Build</span>
             </button>
             <button class="desktop-shortcut" data-window="win-contact" aria-label="Open Contact">
                 <div class="shortcut-icon">✉️</div>
@@ -90,14 +82,14 @@
         <!-- ── Windows container ── -->
         <div id="windows-container" class="windows-container">
 
-            <!-- Hero / About window -->
-            <div class="aero-window" id="win-hero" data-win="win-hero" style="top:60px;left:80px;width:560px;">
-                <div class="aero-titlebar" data-drag="win-hero">
-                    <span class="aero-titlebar-text">SynOpusTech — Built by KiM</span>
+            <!-- About window (combined hero + approach) -->
+            <div class="aero-window" id="win-about" data-win="win-about" style="top:60px;left:80px;width:620px;">
+                <div class="aero-titlebar" data-drag="win-about">
+                    <span class="aero-titlebar-text">SynOpusTech — About</span>
                     <div class="aero-controls">
-                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-hero" aria-label="Minimize"></button>
-                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-hero" aria-label="Maximize"></button>
-                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-hero" aria-label="Close"></button>
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-about" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-about" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-about" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="aero-body hero-body">
@@ -107,74 +99,21 @@
                         I build focused AI tools that solve clear problems, from data extraction to chat experiences
                         and travel planning.
                     </p>
-                    <div class="hero-actions">
-                        <button class="btn btn-primary" data-open-window="win-apps">See My Apps</button>
-                        <button class="btn btn-ghost" data-open-window="win-contact">Work With Me</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Apps window -->
-            <div class="aero-window" id="win-apps" data-win="win-apps" style="top:100px;left:200px;width:780px;">
-                <div class="aero-titlebar" data-drag="win-apps">
-                    <span class="aero-titlebar-text">My Apps — Live Products</span>
-                    <div class="aero-controls">
-                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-apps" aria-label="Minimize"></button>
-                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-apps" aria-label="Maximize"></button>
-                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-apps" aria-label="Close"></button>
-                    </div>
-                </div>
-                <div class="aero-body">
-                    <div class="app-grid">
-                        <article class="app-card">
-                            <img class="app-thumb" src="images/apps/csv-app.png" alt="Screenshot of csv.synopustech.com OCR to CSV app" loading="lazy" decoding="async">
-                            <p class="app-type">OCR Workflow</p>
-                            <h3>CSV Extractor</h3>
-                            <p>Extract tabular data from images and documents, then export clean CSV output for business workflows.</p>
-                            <a class="card-link" href="https://csv.synopustech.com" target="_blank" rel="noopener noreferrer">Open csv.synopustech.com →</a>
-                        </article>
-                        <article class="app-card">
-                            <img class="app-thumb" src="images/apps/chat-app.png" alt="Screenshot of chat.synopustech.com AI web chat app" loading="lazy" decoding="async">
-                            <p class="app-type">AI Assistant</p>
-                            <h3>Web Chat</h3>
-                            <p>A browser-based AI chat app for quick conversations, idea generation, and fast answers.</p>
-                            <a class="card-link" href="https://chat.synopustech.com" target="_blank" rel="noopener noreferrer">Open chat.synopustech.com →</a>
-                        </article>
-                        <article class="app-card">
-                            <img class="app-thumb" src="images/apps/kimmygo-app.png" alt="Screenshot of kimmygo.com restaurant and flight finder app" loading="lazy" decoding="async">
-                            <p class="app-type">Travel + Food Discovery</p>
-                            <h3>KimmyGo</h3>
-                            <p>Plan around your taste and route with restaurant discovery plus flight finding in one place.</p>
-                            <a class="card-link" href="https://www.kimmygo.com/" target="_blank" rel="noopener noreferrer">Open kimmygo.com →</a>
-                        </article>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Approach window -->
-            <div class="aero-window" id="win-approach" data-win="win-approach" style="top:140px;left:320px;width:620px;">
-                <div class="aero-titlebar" data-drag="win-approach">
-                    <span class="aero-titlebar-text">How I Build — Fast iteration, real-world value</span>
-                    <div class="aero-controls">
-                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-approach" aria-label="Minimize"></button>
-                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-approach" aria-label="Maximize"></button>
-                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-approach" aria-label="Close"></button>
-                    </div>
-                </div>
-                <div class="aero-body process-grid">
-                    <div>
-                        <p class="eyebrow">How I Build</p>
-                        <h2>Fast iteration, real-world value.</h2>
-                        <p class="process-copy">
-                            I focus on lean product cycles: identify a specific user problem, ship a useful first version,
-                            then improve with real usage signals.
-                        </p>
-                    </div>
-                    <ul class="process-list">
+                    <hr style="border:none;border-top:1px solid rgba(0,60,160,0.12);margin:1.2rem 0;">
+                    <p class="eyebrow">How I Build</p>
+                    <h2 style="font-size:clamp(1.2rem,2.5vw,1.6rem);color:var(--ink-900);">Fast iteration, real-world value.</h2>
+                    <p class="process-copy">
+                        I focus on lean product cycles: identify a specific user problem, ship a useful first version,
+                        then improve with real usage signals.
+                    </p>
+                    <ul class="process-list" style="margin-top:0.8rem;">
                         <li><strong>Problem First:</strong> every app starts with a clear workflow bottleneck.</li>
                         <li><strong>Ship Early:</strong> launch quickly to validate assumptions with users.</li>
                         <li><strong>Tight Feedback:</strong> improve UX and reliability through fast iterations.</li>
                     </ul>
+                    <div class="hero-actions">
+                        <button class="btn btn-ghost" data-open-window="win-contact">Work With Me</button>
+                    </div>
                 </div>
             </div>
 
@@ -210,7 +149,7 @@
             </div>
 
             <!-- CSV Extractor app window -->
-            <div class="aero-window minimized" id="win-csv" data-win="win-csv" style="top:40px;left:120px;width:900px;height:620px;">
+            <div class="aero-window" id="win-csv" data-win="win-csv" style="top:40px;left:120px;width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-csv">
                     <span class="aero-titlebar-text">📊 CSV Extractor — csv.synopustech.com</span>
                     <div class="aero-controls">
@@ -219,11 +158,11 @@
                         <button class="aero-btn aero-btn-close" data-action="close" data-win="win-csv" aria-label="Close"></button>
                     </div>
                 </div>
-                <iframe class="aero-iframe" data-src="https://csv.synopustech.com" title="CSV Extractor app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                <iframe class="aero-iframe" src="https://csv.synopustech.com" title="CSV Extractor app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
             </div>
 
             <!-- Web Chat app window -->
-            <div class="aero-window minimized" id="win-chat" data-win="win-chat" style="top:60px;left:160px;width:900px;height:620px;">
+            <div class="aero-window" id="win-chat" data-win="win-chat" style="top:60px;left:160px;width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-chat">
                     <span class="aero-titlebar-text">💬 Web Chat — chat.synopustech.com</span>
                     <div class="aero-controls">
@@ -232,11 +171,11 @@
                         <button class="aero-btn aero-btn-close" data-action="close" data-win="win-chat" aria-label="Close"></button>
                     </div>
                 </div>
-                <iframe class="aero-iframe" data-src="https://chat.synopustech.com" title="Web Chat app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                <iframe class="aero-iframe" src="https://chat.synopustech.com" title="Web Chat app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
             </div>
 
             <!-- KimmyGo app window -->
-            <div class="aero-window minimized" id="win-kimmygo" data-win="win-kimmygo" style="top:80px;left:200px;width:900px;height:620px;">
+            <div class="aero-window" id="win-kimmygo" data-win="win-kimmygo" style="top:80px;left:200px;width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-kimmygo">
                     <span class="aero-titlebar-text">✈️ KimmyGo — kimmygo.com</span>
                     <div class="aero-controls">
@@ -245,7 +184,7 @@
                         <button class="aero-btn aero-btn-close" data-action="close" data-win="win-kimmygo" aria-label="Close"></button>
                     </div>
                 </div>
-                <iframe class="aero-iframe" data-src="https://www.kimmygo.com/" title="KimmyGo app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                <iframe class="aero-iframe" src="https://www.kimmygo.com/" title="KimmyGo app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
             </div>
 
             <!-- Privacy Policy window (starts minimized) -->
@@ -323,9 +262,7 @@
             <div class="start-menu hidden" id="start-menu">
                 <div class="start-menu-header">SynOpusTech</div>
                 <div class="start-menu-body">
-                    <button class="start-item" data-window="win-hero">🏠 About</button>
-                    <button class="start-item" data-window="win-apps">📦 My Apps</button>
-                    <button class="start-item" data-window="win-approach">⚙️ How I Build</button>
+                    <button class="start-item" data-window="win-about">🏠 About</button>
                     <button class="start-item" data-window="win-contact">✉️ Contact</button>
                     <button class="start-item" data-window="win-privacy">🔒 Privacy Policy</button>
                     <hr class="start-divider">
@@ -339,13 +276,11 @@
             </div>
 
             <div class="taskbar-buttons" id="taskbar-buttons">
-                <button class="taskbar-btn active" data-win="win-hero" title="About">🏠 About</button>
-                <button class="taskbar-btn active" data-win="win-apps" title="My Apps">📦 Apps</button>
-                <button class="taskbar-btn active" data-win="win-approach" title="How I Build">⚙️ Build</button>
+                <button class="taskbar-btn active" data-win="win-about" title="About">🏠 About</button>
                 <button class="taskbar-btn active" data-win="win-contact" title="Contact">✉️ Contact</button>
-                <button class="taskbar-btn minimized-btn" data-win="win-csv" title="CSV Extractor">📊 CSV</button>
-                <button class="taskbar-btn minimized-btn" data-win="win-chat" title="Web Chat">💬 Chat</button>
-                <button class="taskbar-btn minimized-btn" data-win="win-kimmygo" title="KimmyGo">✈️ KimmyGo</button>
+                <button class="taskbar-btn active" data-win="win-csv" title="CSV Extractor">📊 CSV</button>
+                <button class="taskbar-btn active" data-win="win-chat" title="Web Chat">💬 Chat</button>
+                <button class="taskbar-btn active" data-win="win-kimmygo" title="KimmyGo">✈️ KimmyGo</button>
                 <button class="taskbar-btn minimized-btn" data-win="win-privacy" title="Privacy Policy">🔒 Privacy</button>
             </div>
 

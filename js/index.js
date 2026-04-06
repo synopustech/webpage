@@ -25,8 +25,11 @@
             setTimeout(function () {
                 loginScreen.style.display = 'none';
                 desktop.classList.remove('hidden');
-                // Auto-show hero window
-                showWindow('win-hero');
+                // Auto-show windows (apps already visible, focus about)
+                showWindow('win-csv');
+                showWindow('win-chat');
+                showWindow('win-kimmygo');
+                showWindow('win-about');
             }, 600);
         });
     }
