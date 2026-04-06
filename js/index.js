@@ -87,6 +87,12 @@
             tb.classList.add('active');
             tb.classList.remove('minimized-btn');
         }
+        // Lazy-load iframe src if needed
+        var iframe = win.querySelector('iframe[data-src]');
+        if (iframe) {
+            iframe.src = iframe.getAttribute('data-src');
+            iframe.removeAttribute('data-src');
+        }
     }
 
     /* ── Minimize window ─────────────────────── */
@@ -163,12 +169,13 @@
         });
     });
 
-    /* ── Data-open-window buttons ─────────── */
-    document.querySelectorAll('[data-open-window]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var winId = btn.getAttribute('data-open-window');
-            showWindow(winId);
-        });
+    /* ── Data-open-window buttons & links ────── */
+    document.addEventListener('click', function (e) {
+        var el = e.target.closest('[data-open-window]');
+        if (!el) return;
+        e.preventDefault();
+        var winId = el.getAttribute('data-open-window');
+        showWindow(winId);
     });
 
     /* ── Start menu ──────────────────────────── */
@@ -201,6 +208,14 @@
        ═══════════════════════════════════════════ */
     var dragState = null;
 
+    /* Cover iframes during drag to prevent them stealing events */
+    function setIframePointerEvents(value) {
+        var iframes = document.querySelectorAll('.aero-iframe');
+        for (var i = 0; i < iframes.length; i++) {
+            iframes[i].style.pointerEvents = value;
+        }
+    }
+
     document.addEventListener('mousedown', function (e) {
         var titlebar = e.target.closest('[data-drag]');
         if (!titlebar) return;
@@ -213,6 +228,7 @@
 
         e.preventDefault();
         focusWindow(winId);
+        setIframePointerEvents('none');
 
         dragState = {
             win: win,
@@ -233,6 +249,7 @@
     });
 
     document.addEventListener('mouseup', function () {
+        if (dragState) setIframePointerEvents('');
         dragState = null;
     });
 
@@ -268,6 +285,7 @@
     }, { passive: true });
 
     document.addEventListener('touchend', function () {
+        if (dragState) setIframePointerEvents('');
         dragState = null;
     });
 

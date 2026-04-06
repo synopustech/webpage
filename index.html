@@ -69,6 +69,22 @@
                 <div class="shortcut-icon">✉️</div>
                 <span class="shortcut-label">Contact</span>
             </button>
+            <button class="desktop-shortcut" data-window="win-csv" aria-label="Open CSV Extractor">
+                <div class="shortcut-icon">📊</div>
+                <span class="shortcut-label">CSV Extractor</span>
+            </button>
+            <button class="desktop-shortcut" data-window="win-chat" aria-label="Open Web Chat">
+                <div class="shortcut-icon">💬</div>
+                <span class="shortcut-label">Web Chat</span>
+            </button>
+            <button class="desktop-shortcut" data-window="win-kimmygo" aria-label="Open KimmyGo">
+                <div class="shortcut-icon">✈️</div>
+                <span class="shortcut-label">KimmyGo</span>
+            </button>
+            <button class="desktop-shortcut" data-window="win-privacy" aria-label="Open Privacy Policy">
+                <div class="shortcut-icon">🔒</div>
+                <span class="shortcut-label">Privacy Policy</span>
+            </button>
         </div>
 
         <!-- ── Windows container ── -->
@@ -188,8 +204,109 @@
                         <label for="message">Project details</label>
                         <textarea id="message" name="message" rows="5" placeholder="What are you building?" required></textarea>
                         <button class="btn btn-primary" type="submit">Send Message</button>
-                        <p class="form-note">You can also email <a href="mailto:info@synopustech.com">info@synopustech.com</a>. By submitting, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                        <p class="form-note">You can also email <a href="mailto:info@synopustech.com">info@synopustech.com</a>. By submitting, you agree to our <a href="#" data-open-window="win-privacy">Privacy Policy</a>.</p>
                     </form>
+                </div>
+            </div>
+
+            <!-- CSV Extractor app window -->
+            <div class="aero-window minimized" id="win-csv" data-win="win-csv" style="top:40px;left:120px;width:900px;height:620px;">
+                <div class="aero-titlebar" data-drag="win-csv">
+                    <span class="aero-titlebar-text">📊 CSV Extractor — csv.synopustech.com</span>
+                    <div class="aero-controls">
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-csv" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-csv" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-csv" aria-label="Close"></button>
+                    </div>
+                </div>
+                <iframe class="aero-iframe" data-src="https://csv.synopustech.com" title="CSV Extractor app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+            </div>
+
+            <!-- Web Chat app window -->
+            <div class="aero-window minimized" id="win-chat" data-win="win-chat" style="top:60px;left:160px;width:900px;height:620px;">
+                <div class="aero-titlebar" data-drag="win-chat">
+                    <span class="aero-titlebar-text">💬 Web Chat — chat.synopustech.com</span>
+                    <div class="aero-controls">
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-chat" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-chat" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-chat" aria-label="Close"></button>
+                    </div>
+                </div>
+                <iframe class="aero-iframe" data-src="https://chat.synopustech.com" title="Web Chat app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+            </div>
+
+            <!-- KimmyGo app window -->
+            <div class="aero-window minimized" id="win-kimmygo" data-win="win-kimmygo" style="top:80px;left:200px;width:900px;height:620px;">
+                <div class="aero-titlebar" data-drag="win-kimmygo">
+                    <span class="aero-titlebar-text">✈️ KimmyGo — kimmygo.com</span>
+                    <div class="aero-controls">
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-kimmygo" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-kimmygo" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-kimmygo" aria-label="Close"></button>
+                    </div>
+                </div>
+                <iframe class="aero-iframe" data-src="https://www.kimmygo.com/" title="KimmyGo app" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+            </div>
+
+            <!-- Privacy Policy window (starts minimized) -->
+            <div class="aero-window minimized" id="win-privacy" data-win="win-privacy" style="top:60px;left:150px;width:640px;height:540px;">
+                <div class="aero-titlebar" data-drag="win-privacy">
+                    <span class="aero-titlebar-text">🔒 Privacy Policy — SynOpusTech</span>
+                    <div class="aero-controls">
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-privacy" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-privacy" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-privacy" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="aero-body privacy-body">
+                    <h1>Privacy Policy</h1>
+                    <p class="privacy-updated">Last Updated: November 10, 2025</p>
+
+                    <h2>1. Introduction</h2>
+                    <p>Welcome to SynOpusTech ("Company", "we", "our", "us"). We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://synopustech.com">synopustech.com</a> and use our services.</p>
+
+                    <h2>2. Information We Collect</h2>
+                    <h3>2.1 Personal Data</h3>
+                    <p>Personally identifiable information that you voluntarily provide, such as your name, email address, company name, and other contact details when you fill out contact forms, subscribe to communications, request information, or engage with us.</p>
+                    <h3>2.2 Usage Data</h3>
+                    <p>Information automatically collected: IP address, browser type, operating system, device information, pages visited, time spent, referring URLs, clickstream data, and cookies.</p>
+
+                    <h2>3. How We Use Your Information</h2>
+                    <p>We use collected information for: providing and maintaining services, responding to inquiries, sending updates and marketing communications, improving our website, analyzing usage trends, detecting technical issues or fraud, and complying with legal obligations.</p>
+
+                    <h2>4. Disclosure of Your Information</h2>
+                    <p>We may share your information with: service providers performing services on our behalf; in connection with business transfers; when required by law; or with your consent.</p>
+
+                    <h2>5. Cookies and Tracking</h2>
+                    <p>We use cookies and similar tracking technologies. You can instruct your browser to refuse cookies, though some features may not function properly.</p>
+
+                    <h2>6. Data Security</h2>
+                    <p>We implement appropriate technical and organizational security measures. However, no method of transmission over the internet is 100% secure.</p>
+
+                    <h2>7. Data Retention</h2>
+                    <p>We retain your personal information only as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law.</p>
+
+                    <h2>8. Your Privacy Rights</h2>
+                    <p>Depending on your location, you may have rights to: access, correct, delete, object to processing, restrict processing, data portability, and withdraw consent. Contact us to exercise these rights.</p>
+
+                    <h2>9. Third-Party Links</h2>
+                    <p>Our website may contain links to third-party websites. We are not responsible for their privacy practices.</p>
+
+                    <h2>10. Children's Privacy</h2>
+                    <p>Our services are not directed to individuals under 18. We do not knowingly collect personal information from children.</p>
+
+                    <h2>11. International Data Transfers</h2>
+                    <p>Your information may be transferred to and maintained on computers outside your jurisdiction. By using our services, you consent to such transfers.</p>
+
+                    <h2>12. Changes to This Policy</h2>
+                    <p>We may update this policy from time to time. We will notify you by posting the new policy and updating the "Last Updated" date.</p>
+
+                    <h2>13. Disclaimer and Limitation of Liability</h2>
+                    <p>Our website and services are provided "as is" without warranties of any kind. To the maximum extent permitted by law, SynOpusTech shall not be liable for any indirect, incidental, special, consequential, or punitive damages. You agree to indemnify and hold harmless SynOpusTech from claims arising from your use of our services.</p>
+
+                    <h2>14. Contact Us</h2>
+                    <p>If you have questions about this privacy policy, contact us:</p>
+                    <p><strong>SynOpusTech</strong><br>Email: <a href="mailto:privacy@synopustech.com">privacy@synopustech.com</a><br>Website: <a href="#" data-open-window="win-contact">Contact Form</a></p>
                 </div>
             </div>
 
@@ -210,10 +327,11 @@
                     <button class="start-item" data-window="win-apps">📦 My Apps</button>
                     <button class="start-item" data-window="win-approach">⚙️ How I Build</button>
                     <button class="start-item" data-window="win-contact">✉️ Contact</button>
+                    <button class="start-item" data-window="win-privacy">🔒 Privacy Policy</button>
                     <hr class="start-divider">
-                    <a class="start-item" href="https://csv.synopustech.com" target="_blank" rel="noopener noreferrer">🔗 csv.synopustech.com</a>
-                    <a class="start-item" href="https://chat.synopustech.com" target="_blank" rel="noopener noreferrer">🔗 chat.synopustech.com</a>
-                    <a class="start-item" href="https://www.kimmygo.com/" target="_blank" rel="noopener noreferrer">🔗 kimmygo.com</a>
+                    <button class="start-item" data-window="win-csv">📊 CSV Extractor</button>
+                    <button class="start-item" data-window="win-chat">💬 Web Chat</button>
+                    <button class="start-item" data-window="win-kimmygo">✈️ KimmyGo</button>
                 </div>
                 <div class="start-menu-footer">
                     Window chrome by <a href="https://github.com/Z2r-YT/7-Aero-Stylesheet" target="_blank" rel="noopener noreferrer">Z2r-YT</a> &bull; &copy; <span id="current-year">2026</span> SynOpusTech
@@ -225,6 +343,10 @@
                 <button class="taskbar-btn active" data-win="win-apps" title="My Apps">📦 Apps</button>
                 <button class="taskbar-btn active" data-win="win-approach" title="How I Build">⚙️ Build</button>
                 <button class="taskbar-btn active" data-win="win-contact" title="Contact">✉️ Contact</button>
+                <button class="taskbar-btn minimized-btn" data-win="win-csv" title="CSV Extractor">📊 CSV</button>
+                <button class="taskbar-btn minimized-btn" data-win="win-chat" title="Web Chat">💬 Chat</button>
+                <button class="taskbar-btn minimized-btn" data-win="win-kimmygo" title="KimmyGo">✈️ KimmyGo</button>
+                <button class="taskbar-btn minimized-btn" data-win="win-privacy" title="Privacy Policy">🔒 Privacy</button>
             </div>
 
             <div class="taskbar-clock" id="taskbar-clock"></div>
@@ -293,7 +415,7 @@
                     <textarea id="m-message" name="message" rows="4" placeholder="What are you building?" required></textarea>
                     <button class="btn btn-primary" type="submit">Send Message</button>
                 </form>
-                <p class="form-note" style="color:#8ab0d0;">Email <a href="mailto:info@synopustech.com" style="color:#90d0ff;">info@synopustech.com</a>. <a href="privacy-policy.html" style="color:#90d0ff;">Privacy Policy</a>.</p>
+                <p class="form-note" style="color:#8ab0d0;">Email <a href="mailto:info@synopustech.com" style="color:#90d0ff;">info@synopustech.com</a>.</p>
             </section>
             <footer class="m-footer">
                 <p>SynOpusTech — AI products by KiM</p>
