@@ -23,7 +23,7 @@ html {
 
 body {
     margin: 0;
-    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-family: "Manrope", "Segoe UI", sans-serif;
     color: var(--text-900);
     background:
         radial-gradient(circle at 8% 10%, rgba(39, 200, 164, 0.18), transparent 38%),
@@ -109,9 +109,9 @@ body {
 }
 
 .logo {
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Sora", "Segoe UI", sans-serif;
     font-size: clamp(1.35rem, 2.8vw, 1.7rem);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--ink-900);
     text-decoration: none;
     letter-spacing: 0.01em;
@@ -158,13 +158,14 @@ body {
 h1,
 h2,
 h3 {
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Sora", "Segoe UI", sans-serif;
     margin: 0;
 }
 
 .hero h1 {
     font-size: clamp(2rem, 5vw, 4.2rem);
-    line-height: 1.08;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
     max-width: 17ch;
     color: var(--ink-900);
 }
