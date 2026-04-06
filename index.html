@@ -13,17 +13,19 @@
     <meta property="og:url" content="https://synopustech.com/">
     <link rel="canonical" href="https://synopustech.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="theme-color" content="#13384c">
+    <meta name="theme-color" content="#002060">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css?v=20260406c">
+    <link rel="stylesheet" href="css/index.css?v=20260504a">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <div class="bg-glow bg-glow-left" aria-hidden="true"></div>
-    <div class="bg-glow bg-glow-right" aria-hidden="true"></div>
+    <!-- Aero desktop bokeh glows -->
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-3" aria-hidden="true"></div>
 
     <header class="site-header" id="top">
         <div class="container nav-wrap">
@@ -39,110 +41,177 @@
     </header>
 
     <main id="main-content">
-        <section class="hero container reveal">
-            <p class="eyebrow">Built by KiM</p>
-            <h1>Practical AI Products for Everyday Decisions and Workflows.</h1>
-            <p class="hero-copy">
-                I build focused AI tools that solve clear problems, from data extraction to chat experiences
-                and travel planning.
-            </p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="#apps">See My Apps</a>
-                <a class="btn btn-ghost" href="#contact">Work With Me</a>
+
+        <!-- ── Hero window ── -->
+        <section class="hero-section container reveal">
+            <div class="aero-window">
+                <div class="aero-titlebar">
+                    <span class="aero-titlebar-text">SynOpusTech — Built by KiM</span>
+                    <div class="aero-controls" aria-hidden="true">
+                        <button class="aero-btn aero-btn-min" tabindex="-1" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" tabindex="-1" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" tabindex="-1" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="aero-body hero-body">
+                    <p class="eyebrow">Built by KiM</p>
+                    <h1>Practical AI Products for Everyday Decisions and Workflows.</h1>
+                    <p class="hero-copy">
+                        I build focused AI tools that solve clear problems, from data extraction to chat experiences
+                        and travel planning.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#apps">See My Apps</a>
+                        <a class="btn btn-ghost" href="#contact">Work With Me</a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="apps" class="apps-section container reveal">
-            <div class="section-heading">
+        <!-- ── Apps section — each app is its own window ── -->
+        <section id="apps" class="apps-section container">
+            <div class="desktop-label reveal">
                 <p class="eyebrow">Live Products</p>
                 <h2>Three apps shipping now</h2>
             </div>
 
             <div class="app-grid">
-                <article class="app-card reveal">
-                    <img class="app-thumb" src="images/apps/csv-app.png" alt="Screenshot preview of csv.synopustech.com OCR to CSV app" loading="lazy" decoding="async">
-                    <p class="app-type">OCR Workflow</p>
-                    <h3>CSV Extractor</h3>
-                    <p>Extract tabular data from images and documents, then export clean CSV output for business workflows.</p>
-                    <a class="card-link" href="https://csv.synopustech.com" target="_blank" rel="noopener noreferrer">Open csv.synopustech.com</a>
+
+                <article class="aero-window reveal">
+                    <div class="aero-titlebar">
+                        <span class="aero-titlebar-text">CSV Extractor — OCR Workflow</span>
+                        <div class="aero-controls" aria-hidden="true">
+                            <button class="aero-btn aero-btn-min" tabindex="-1" aria-label="Minimize"></button>
+                            <button class="aero-btn aero-btn-max" tabindex="-1" aria-label="Maximize"></button>
+                            <button class="aero-btn aero-btn-close" tabindex="-1" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="aero-body app-body">
+                        <img class="app-thumb" src="images/apps/csv-app.png" alt="Screenshot preview of csv.synopustech.com OCR to CSV app" loading="lazy" decoding="async">
+                        <p class="app-type">OCR Workflow</p>
+                        <h3>CSV Extractor</h3>
+                        <p>Extract tabular data from images and documents, then export clean CSV output for business workflows.</p>
+                        <a class="card-link" href="https://csv.synopustech.com" target="_blank" rel="noopener noreferrer">Open csv.synopustech.com</a>
+                    </div>
                 </article>
 
-                <article class="app-card reveal">
-                    <img class="app-thumb" src="images/apps/chat-app.png" alt="Screenshot preview of chat.synopustech.com AI web chat app" loading="lazy" decoding="async">
-                    <p class="app-type">AI Assistant</p>
-                    <h3>Web Chat</h3>
-                    <p>A browser-based AI chat app for quick conversations, idea generation, and fast answers.</p>
-                    <a class="card-link" href="https://chat.synopustech.com" target="_blank" rel="noopener noreferrer">Open chat.synopustech.com</a>
+                <article class="aero-window reveal">
+                    <div class="aero-titlebar">
+                        <span class="aero-titlebar-text">Web Chat — AI Assistant</span>
+                        <div class="aero-controls" aria-hidden="true">
+                            <button class="aero-btn aero-btn-min" tabindex="-1" aria-label="Minimize"></button>
+                            <button class="aero-btn aero-btn-max" tabindex="-1" aria-label="Maximize"></button>
+                            <button class="aero-btn aero-btn-close" tabindex="-1" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="aero-body app-body">
+                        <img class="app-thumb" src="images/apps/chat-app.png" alt="Screenshot preview of chat.synopustech.com AI web chat app" loading="lazy" decoding="async">
+                        <p class="app-type">AI Assistant</p>
+                        <h3>Web Chat</h3>
+                        <p>A browser-based AI chat app for quick conversations, idea generation, and fast answers.</p>
+                        <a class="card-link" href="https://chat.synopustech.com" target="_blank" rel="noopener noreferrer">Open chat.synopustech.com</a>
+                    </div>
                 </article>
 
-                <article class="app-card reveal">
-                    <img class="app-thumb" src="images/apps/kimmygo-app.png" alt="Screenshot preview of kimmygo.com restaurant and flight finder app" loading="lazy" decoding="async">
-                    <p class="app-type">Travel + Food Discovery</p>
-                    <h3>KimmyGo</h3>
-                    <p>Plan around your taste and route with restaurant discovery plus flight finding in one place.</p>
-                    <a class="card-link" href="https://www.kimmygo.com/" target="_blank" rel="noopener noreferrer">Open kimmygo.com</a>
+                <article class="aero-window reveal">
+                    <div class="aero-titlebar">
+                        <span class="aero-titlebar-text">KimmyGo — Travel &amp; Food Discovery</span>
+                        <div class="aero-controls" aria-hidden="true">
+                            <button class="aero-btn aero-btn-min" tabindex="-1" aria-label="Minimize"></button>
+                            <button class="aero-btn aero-btn-max" tabindex="-1" aria-label="Maximize"></button>
+                            <button class="aero-btn aero-btn-close" tabindex="-1" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="aero-body app-body">
+                        <img class="app-thumb" src="images/apps/kimmygo-app.png" alt="Screenshot preview of kimmygo.com restaurant and flight finder app" loading="lazy" decoding="async">
+                        <p class="app-type">Travel + Food Discovery</p>
+                        <h3>KimmyGo</h3>
+                        <p>Plan around your taste and route with restaurant discovery plus flight finding in one place.</p>
+                        <a class="card-link" href="https://www.kimmygo.com/" target="_blank" rel="noopener noreferrer">Open kimmygo.com</a>
+                    </div>
                 </article>
+
             </div>
         </section>
 
-        <section id="build" class="process-section reveal">
-            <div class="container process-grid">
-                <div>
-                    <p class="eyebrow">How I Build</p>
-                    <h2>Fast iteration, real-world value.</h2>
-                    <p class="process-copy">
-                        I focus on lean product cycles: identify a specific user problem, ship a useful first version,
-                        then improve with real usage signals.
-                    </p>
+        <!-- ── Approach window ── -->
+        <section id="build" class="approach-section container reveal">
+            <div class="aero-window">
+                <div class="aero-titlebar">
+                    <span class="aero-titlebar-text">How I Build — Fast iteration, real-world value</span>
+                    <div class="aero-controls" aria-hidden="true">
+                        <button class="aero-btn aero-btn-min" tabindex="-1" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" tabindex="-1" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" tabindex="-1" aria-label="Close"></button>
+                    </div>
                 </div>
-                <ul class="process-list">
-                    <li><strong>Problem First:</strong> every app starts with a clear workflow bottleneck.</li>
-                    <li><strong>Ship Early:</strong> launch quickly to validate assumptions with users.</li>
-                    <li><strong>Tight Feedback:</strong> improve UX and reliability through fast iterations.</li>
-                </ul>
+                <div class="aero-body process-grid">
+                    <div>
+                        <p class="eyebrow">How I Build</p>
+                        <h2>Fast iteration, real-world value.</h2>
+                        <p class="process-copy">
+                            I focus on lean product cycles: identify a specific user problem, ship a useful first version,
+                            then improve with real usage signals.
+                        </p>
+                    </div>
+                    <ul class="process-list">
+                        <li><strong>Problem First:</strong> every app starts with a clear workflow bottleneck.</li>
+                        <li><strong>Ship Early:</strong> launch quickly to validate assumptions with users.</li>
+                        <li><strong>Tight Feedback:</strong> improve UX and reliability through fast iterations.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
+        <!-- ── Contact window ── -->
         <section id="contact" class="contact-section container reveal">
-            <div class="section-heading">
-                <p class="eyebrow">Contact</p>
-                <h2>Let&apos;s build your next AI app</h2>
+            <div class="aero-window">
+                <div class="aero-titlebar">
+                    <span class="aero-titlebar-text">Contact — Let's Build Your Next AI App</span>
+                    <div class="aero-controls" aria-hidden="true">
+                        <button class="aero-btn aero-btn-min" tabindex="-1" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" tabindex="-1" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" tabindex="-1" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="aero-body">
+                    <div id="success-message" class="alert alert-success" role="status" aria-live="polite" hidden>
+                        Thanks for reaching out. Your message has been sent.
+                    </div>
+
+                    <form id="contactForm" class="contact-form" action="https://formspree.io/f/mrbqrjpp" method="POST">
+                        <input type="hidden" id="formSubject" name="_subject">
+                        <input type="hidden" name="_next" value="index.html?submitted=true#contact">
+
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" placeholder="Your name" required>
+
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+                        <label for="company">Company</label>
+                        <input id="company" name="company" type="text" placeholder="Optional">
+
+                        <label for="message">Project details</label>
+                        <textarea id="message" name="message" rows="5" placeholder="What are you building?" required></textarea>
+
+                        <button class="btn btn-primary" type="submit">Send Message</button>
+                        <p class="form-note">You can also email <a href="mailto:info@synopustech.com">info@synopustech.com</a>. By submitting, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                    </form>
+                </div>
             </div>
-
-            <div id="success-message" class="alert alert-success" role="status" aria-live="polite" hidden>
-                Thanks for reaching out. Your message has been sent.
-            </div>
-
-            <form id="contactForm" class="contact-form" action="https://formspree.io/f/mrbqrjpp" method="POST">
-                <input type="hidden" id="formSubject" name="_subject">
-                <input type="hidden" name="_next" value="index.html?submitted=true#contact">
-
-                <label for="name">Name</label>
-                <input id="name" name="name" type="text" placeholder="Your name" required>
-
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" required>
-
-                <label for="company">Company</label>
-                <input id="company" name="company" type="text" placeholder="Optional">
-
-                <label for="message">Project details</label>
-                <textarea id="message" name="message" rows="5" placeholder="What are you building?" required></textarea>
-
-                <button class="btn btn-primary" type="submit">Send Message</button>
-                <p class="form-note">You can also email <a href="mailto:info@synopustech.com">info@synopustech.com</a>. By submitting, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
-            </form>
         </section>
+
     </main>
 
     <footer class="site-footer">
         <div class="container footer-wrap">
-            <p>SynOpusTech</p>
-            <p>AI products by KiM • <span id="current-year">2026</span></p>
+            <p>SynOpusTech &mdash; AI products by KiM &bull; <span id="current-year">2026</span></p>
+            <p class="footer-credit">Window chrome inspired by <a href="https://github.com/Z2r-YT/7-Aero-Stylesheet" target="_blank" rel="noopener noreferrer">Z2r-YT / 7-Aero-Stylesheet</a></p>
         </div>
     </footer>
 
-    <script src="js/structured-data.js?v=20260406c"></script>
-    <script src="js/index.js?v=20260406c"></script>
+    <script src="js/structured-data.js?v=20260504a"></script>
+    <script src="js/index.js?v=20260504a"></script>
 </body>
 </html>
