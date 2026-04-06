@@ -16,14 +16,196 @@
     <meta name="msapplication-navbutton-color" content="#0A0E27">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts — macOS-inspired theme -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- External CSS -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/privacy-policy.css">
+    <!-- Theme CSS -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body { height: 100%; width: 100%; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Manrope, sans-serif;
+            background: linear-gradient(135deg, #0e1220 0%, #1b2340 50%, #1a2235 100%);
+            color: #edf2ff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a { color: #7e98ff; text-decoration: none; }
+        a:hover { color: #a9bcff; text-decoration: underline; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header {
+            backdrop-filter: blur(20px);
+            background: rgba(28, 36, 64, 0.55);
+            border-bottom: 1px solid rgba(146, 163, 224, 0.22);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+        
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #edf2ff;
+            letter-spacing: -0.3px;
+        }
+        
+        .logo span { color: #7e98ff; }
+        
+        .header-nav { display: none; }
+        
+        @media (min-width: 768px) {
+            .header-nav { display: block; }
+            .nav-links { list-style: none; display: flex; gap: 24px; }
+            .nav-links a { color: #b6c2ea; font-size: 14px; }
+            .nav-links a:hover { color: #edf2ff; }
+        }
+        
+        /* Privacy Hero */
+        .privacy-hero {
+            padding: 60px 0;
+            text-align: center;
+            background: rgba(126, 152, 255, 0.08);
+            border-bottom: 1px solid rgba(146, 163, 224, 0.22);
+        }
+        
+        .privacy-hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        
+        .last-updated {
+            color: #8f9cca;
+            font-size: 13px;
+        }
+        
+        /* Content */
+        .privacy-content {
+            padding: 60px 0;
+        }
+        
+        .content-wrapper {
+            background: rgba(28, 36, 64, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(146, 163, 224, 0.22);
+            border-radius: 24px;
+            padding: 40px;
+        }
+        
+        .policy-section { margin-bottom: 32px; }
+        .policy-section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #a9bcff;
+        }
+        
+        .policy-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            color: #c5d0ff;
+        }
+        
+        .policy-section p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #b6c2ea;
+            margin-bottom: 12px;
+        }
+        
+        .policy-section ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .policy-section li {
+            font-size: 14px;
+            color: #b6c2ea;
+            margin-bottom: 6px;
+        }
+        
+        .contact-info {
+            background: rgba(126, 152, 255, 0.08);
+            border: 1px solid rgba(126, 152, 255, 0.22);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 12px;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(18, 24, 43, 0.8);
+            border-top: 1px solid rgba(146, 163, 224, 0.22);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: #c5d0ff;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .footer-section p, .footer-section a {
+            font-size: 13px;
+            color: #8f9cca;
+        }
+        
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 6px; }
+        
+        .footer-bottom {
+            text-align: center;
+            font-size: 12px;
+            color: #7b86ad;
+            padding-top: 20px;
+            border-top: 1px solid rgba(146, 163, 224, 0.15);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .privacy-hero h1 { font-size: 32px; }
+            .content-wrapper { padding: 24px; }
+            .privacy-section { margin-bottom: 24px; }
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #7e98ff;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus { top: 0; }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
