@@ -836,6 +836,12 @@ a:focus-visible {
 .m-app-card p { color: #ccd9ff; font-size: 0.9rem; margin: 0; }
 .m-app-card a { color: #eff4ff; font-weight: 650; display: inline-block; margin-top: 0.5rem; }
 
+.app-thumb {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+
 .m-footer {
     padding: 1.5rem 0;
     text-align: center;
@@ -878,6 +884,13 @@ a:focus-visible {
     body {
         overflow-y: auto;
         height: auto;
+    }
+
+    .app-thumb {
+        width: 100%;
+        max-height: 320px;
+        object-fit: contain;
+        display: block;
     }
 
     .process-list li {
