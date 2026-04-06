@@ -779,7 +779,7 @@ a:focus-visible {
     min-height: 0;
 }
 
-.privacy-body { padding: 1.5rem 2rem; }
+.privacy-body { padding: 1.5rem 2rem; overflow: hidden; }
 .privacy-body h1 { font-size: 1.5rem; color: #1d274b; margin-bottom: 0.22rem; }
 
 .privacy-body h2 {
