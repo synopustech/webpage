@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SynOpusTech | AI Apps by KiM</title>
-    <meta name="description" content="Explore SynOpusTech apps: OCR to CSV, AI web chat, and KimmyGo for restaurant and flight discovery. Contact KiM through the Formspree form.">
-    <meta name="keywords" content="SynOpusTech, AI apps, OCR to CSV, web chat, restaurant finder, flight finder, KimmyGo">
+    <meta name="description" content="Explore SynOpusTech apps in a macOS-inspired desktop: CSV Extractor, Web Chat, and Finder for restaurant and flight discovery.">
+    <meta name="keywords" content="SynOpusTech, AI apps, macOS style, OCR to CSV, web chat, restaurant finder, flight finder, Finder">
     <meta name="author" content="SynOpusTech">
     <meta property="og:title" content="SynOpusTech | AI Apps by KiM">
-    <meta property="og:description" content="Three real AI apps built for practical use: OCR to CSV, AI Web Chat, and KimmyGo.">
+    <meta property="og:description" content="Three real AI apps built for practical use: OCR to CSV, AI Web Chat, and Finder.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://synopustech.com/">
     <link rel="canonical" href="https://synopustech.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="theme-color" content="#002060">
+    <meta name="theme-color" content="#1f2333">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css?v=20260706a">
+    <link rel="stylesheet" href="css/index.css?v=20260706d">
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#desktop" class="skip-link">Skip to main content</a>
 
-    <!-- ══════════════════════════════════════════════
-         LOGIN SCREEN (Windows 7 style)
-         ══════════════════════════════════════════════ -->
+        <!-- ══════════════════════════════════════════════
+            LOGIN SCREEN (macOS-inspired)
+            ══════════════════════════════════════════════ -->
     <div id="login-screen" class="login-screen">
         <div class="login-content">
             <div class="login-avatar">
@@ -35,7 +35,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="login-name">KiM</div>
+            <div class="login-name">User</div>
             <button id="login-btn" class="login-btn" type="button">Log In</button>
             <p class="login-hint">Click to enter the desktop</p>
         </div>
@@ -44,7 +44,23 @@
     <!-- ══════════════════════════════════════════════
          DESKTOP
          ══════════════════════════════════════════════ -->
-    <div id="desktop" class="desktop hidden" role="main" id="main-content">
+    <div id="desktop" class="desktop hidden" role="main" aria-label="Desktop experience">
+
+        <div class="menu-bar" aria-label="Desktop menu bar">
+            <div class="menu-left">
+                <span class="apple-mark" aria-hidden="true"></span>
+                <span class="menu-item menu-item-strong">SynOpusTech</span>
+                <span class="menu-item">File</span>
+                <span class="menu-item">View</span>
+                <span class="menu-item">Window</span>
+                <span class="menu-item">Help</span>
+            </div>
+            <div class="menu-right">
+                <span class="menu-item">Wi-Fi</span>
+                <span class="menu-item">100%</span>
+                <span class="menu-clock" id="menu-clock"></span>
+            </div>
+        </div>
 
         <!-- Aero bokeh glows -->
         <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
@@ -204,7 +220,7 @@
                 <iframe class="aero-iframe" src="https://chat.synopustech.com" title="Web Chat app"></iframe>
             </div>
 
-            <!-- KimmyGo app window -->
+            <!-- Finder app window -->
             <div class="aero-window" id="win-kimmygo" data-win="win-kimmygo" style="width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-kimmygo">
                     <span class="aero-titlebar-text">🍽️ Finder — finder.synopustech.com</span>
@@ -282,15 +298,15 @@
         </div>
 
         <!-- ══════════════════════════════════════════
-             TASKBAR
+             DOCK
              ══════════════════════════════════════════ -->
         <div class="taskbar" id="taskbar">
-            <button class="start-btn" id="start-btn" aria-label="Start menu">
-                <span class="start-orb">⊞</span>
+            <button class="start-btn" id="start-btn" aria-label="Launchpad">
+                <span class="start-orb">✦</span>
             </button>
 
             <div class="start-menu hidden" id="start-menu">
-                <div class="start-menu-header">SynOpusTech</div>
+                <div class="start-menu-header">Launchpad</div>
                 <div class="start-menu-body">
                     <button class="start-item" data-window="win-about">🏠 About</button>
                     <button class="start-item" data-window="win-contact">✉️ Contact</button>
@@ -301,17 +317,17 @@
                     <button class="start-item" data-window="win-kimmygo">🍽️ Finder</button>
                 </div>
                 <div class="start-menu-footer">
-                    Window chrome by <a href="https://github.com/Z2r-YT/7-Aero-Stylesheet" target="_blank" rel="noopener noreferrer">Z2r-YT</a> &bull; &copy; <span id="current-year">2026</span> SynOpusTech
+                    macOS-inspired interface &bull; &copy; <span id="current-year">2026</span> SynOpusTech
                 </div>
             </div>
 
             <div class="taskbar-buttons" id="taskbar-buttons">
-                <button class="taskbar-btn active" data-win="win-about" title="About">🏠 About</button>
-                <button class="taskbar-btn active" data-win="win-contact" title="Contact">✉️ Contact</button>
-                <button class="taskbar-btn active" data-win="win-csv" title="CSV Extractor">📊 CSV</button>
-                <button class="taskbar-btn active" data-win="win-chat" title="Web Chat">💬 Chat</button>
-                <button class="taskbar-btn active" data-win="win-kimmygo" title="Finder">🍽️ Finder</button>
-                <button class="taskbar-btn minimized-btn" data-win="win-privacy" title="Privacy Policy">🔒 Privacy</button>
+                <button class="taskbar-btn active" data-win="win-about" title="About"><span class="dock-emoji">🏠</span><span class="dock-text">About</span></button>
+                <button class="taskbar-btn active" data-win="win-contact" title="Contact"><span class="dock-emoji">✉️</span><span class="dock-text">Contact</span></button>
+                <button class="taskbar-btn active" data-win="win-csv" title="CSV Extractor"><span class="dock-emoji">📊</span><span class="dock-text">CSV</span></button>
+                <button class="taskbar-btn active" data-win="win-chat" title="Web Chat"><span class="dock-emoji">💬</span><span class="dock-text">Chat</span></button>
+                <button class="taskbar-btn active" data-win="win-kimmygo" title="Finder"><span class="dock-emoji">🍽️</span><span class="dock-text">Finder</span></button>
+                <button class="taskbar-btn minimized-btn" data-win="win-privacy" title="Privacy Policy"><span class="dock-emoji">🔒</span><span class="dock-text">Privacy</span></button>
             </div>
 
             <div class="taskbar-clock" id="taskbar-clock"></div>
@@ -384,12 +400,12 @@
             </section>
             <footer class="m-footer">
                 <p>SynOpusTech — AI products by KiM</p>
-                <p>Window chrome by <a href="https://github.com/Z2r-YT/7-Aero-Stylesheet" target="_blank" rel="noopener noreferrer">Z2r-YT</a></p>
+                <p>macOS-inspired interface for SynOpusTech apps</p>
             </footer>
         </main>
     </div>
 
-    <script src="js/structured-data.js?v=20260706a"></script>
-    <script src="js/index.js?v=20260706a"></script>
+    <script src="js/structured-data.js?v=20260706d"></script>
+    <script src="js/index.js?v=20260706d"></script>
 </body>
 </html>

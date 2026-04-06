@@ -12,6 +12,7 @@
     var startMenu = document.getElementById('start-menu');
     var taskbarButtons = document.getElementById('taskbar-buttons');
     var clockEl = document.getElementById('taskbar-clock');
+    var menuClockEl = document.getElementById('menu-clock');
     var yearEl = document.getElementById('current-year');
     var contactForm = document.getElementById('contactForm');
     var successMsg = document.getElementById('success-message');
@@ -56,12 +57,21 @@
 
     /* ── Clock ──────────────────────────────────── */
     function updateClock() {
-        if (!clockEl) return;
         var now = new Date();
-        clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        var timeOnly = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (clockEl) clockEl.textContent = timeOnly;
+        if (menuClockEl) {
+            menuClockEl.textContent = now.toLocaleString([], {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
     }
     updateClock();
-    setInterval(updateClock, 30000);
+    setInterval(updateClock, 1000);
 
     /* ── Focus management ────────────────────── */
     function focusWindow(winId) {
@@ -216,7 +226,8 @@
     }
 
     function randomizeWindowPositions() {
-        var taskbarH = 42;
+        var dockH = 110;
+        var menuBarH = 36;
         var vw = window.innerWidth;
         var vh = window.innerHeight;
         var edge = 24;  // minimum margin from viewport edges
@@ -236,9 +247,9 @@
             if (!el) return;
             var w = def[1], h = def[2];
             var maxLeft = Math.max(edge, vw - w - edge);
-            var maxTop  = Math.max(edge, vh - taskbarH - h - edge);
+            var maxTop  = Math.max(menuBarH + edge, vh - dockH - h - edge);
             el.style.left = rand(edge, maxLeft) + 'px';
-            el.style.top  = rand(edge, maxTop)  + 'px';
+            el.style.top  = rand(menuBarH + edge, maxTop)  + 'px';
         });
     }
 
