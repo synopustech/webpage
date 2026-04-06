@@ -24,7 +24,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background-color: #010f25; }
 
 /* ── Desktop background ──────────────────────────── */
 body {
@@ -704,7 +704,7 @@ textarea:focus-visible, .card-link:focus-visible, a:focus-visible {
 /* ═══════════════════════════════════════════════════
    MOBILE FALLBACK
    ═══════════════════════════════════════════════════ */
-.mobile-fallback { display: none; background: #010d1f; }
+.mobile-fallback { display: none; }
 
 .mobile-header {
     position: sticky; top: 0; z-index: 200;
