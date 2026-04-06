@@ -784,4 +784,14 @@ textarea:focus-visible, .card-link:focus-visible, a:focus-visible {
         overflow-y: auto;
         height: auto;
     }
+
+    /* Fix dark text that was designed for the white aero window body */
+    .process-list li {
+        color: #c0d8f0;
+        background: rgba(20, 60, 140, 0.30);
+        border-color: rgba(100, 170, 255, 0.20);
+    }
+    .contact-form label {
+        color: #b8d8f8;
+    }
 }
