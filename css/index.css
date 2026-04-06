@@ -167,7 +167,13 @@ body {
     gap: 0.85rem;
 }
 
-.apple-mark { font-size: 1.04rem; line-height: 1; }
+.apple-mark { 
+    font-size: 1.1rem; 
+    line-height: 1; 
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
 .menu-item-strong { font-weight: 700; }
 .menu-clock { font-variant-numeric: tabular-nums; }
 
@@ -303,7 +309,7 @@ body {
     align-items: center;
     justify-content: space-between;
     height: 38px;
-    background: rgba(250, 252, 255, 0.74);
+    background: rgba(250, 252, 255, 0.80);
     border-bottom: 1px solid rgba(196, 204, 230, 0.8);
     user-select: none;
     cursor: grab;
