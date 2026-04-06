@@ -704,7 +704,7 @@ textarea:focus-visible, .card-link:focus-visible, a:focus-visible {
 /* ═══════════════════════════════════════════════════
    MOBILE FALLBACK
    ═══════════════════════════════════════════════════ */
-.mobile-fallback { display: none; }
+.mobile-fallback { display: none; background: #010d1f; }
 
 .mobile-header {
     position: sticky; top: 0; z-index: 200;
@@ -787,9 +787,12 @@ textarea:focus-visible, .card-link:focus-visible, a:focus-visible {
 
     /* Fix dark text that was designed for the white aero window body */
     .process-list li {
-        color: #c0d8f0;
-        background: rgba(20, 60, 140, 0.30);
+        color: #dceeff !important;
+        background: rgba(20, 60, 140, 0.35);
         border-color: rgba(100, 170, 255, 0.20);
+    }
+    .process-list li strong {
+        color: #ffffff !important;
     }
     .contact-form label {
         color: #b8d8f8;
