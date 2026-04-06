@@ -257,8 +257,9 @@ a:focus-visible {
 
 .app-thumb {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     object-fit: cover;
+    object-position: top center;
     border-radius: 14px;
     border: 1px solid rgba(30, 74, 99, 0.16);
     display: block;
