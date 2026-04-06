@@ -25,10 +25,13 @@
             setTimeout(function () {
                 loginScreen.style.display = 'none';
                 desktop.classList.remove('hidden');
-                // Auto-show windows (apps already visible, focus about)
+                // Randomise positions before revealing windows
+                randomizeWindowPositions();
+                // Show apps first so about ends up on top (last = highest z-index)
                 showWindow('win-csv');
                 showWindow('win-chat');
                 showWindow('win-kimmygo');
+                showWindow('win-contact');
                 showWindow('win-about');
             }, 600);
         });
@@ -206,6 +209,40 @@
     }
 
     /* ═══════════════════════════════════════════
+       WINDOW POSITION RANDOMISER
+       ═══════════════════════════════════════════ */
+    function rand(min, max) {
+        return Math.floor(min + Math.random() * (max - min));
+    }
+
+    function randomizeWindowPositions() {
+        var taskbarH = 42;
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var edge = 24;  // minimum margin from viewport edges
+
+        // [id, approx-width, approx-height]
+        var wins = [
+            ['win-about',   640, 560],
+            ['win-contact', 520, 480],
+            ['win-csv',     900, 620],
+            ['win-chat',    900, 620],
+            ['win-kimmygo', 900, 620],
+            ['win-privacy', 640, 540]
+        ];
+
+        wins.forEach(function (def) {
+            var el = document.getElementById(def[0]);
+            if (!el) return;
+            var w = def[1], h = def[2];
+            var maxLeft = Math.max(edge, vw - w - edge);
+            var maxTop  = Math.max(edge, vh - taskbarH - h - edge);
+            el.style.left = rand(edge, maxLeft) + 'px';
+            el.style.top  = rand(edge, maxTop)  + 'px';
+        });
+    }
+
+    /* ═══════════════════════════════════════════
        WINDOW DRAGGING
        Inspired by Z2r-YT/7-Aero-Stylesheet
        ═══════════════════════════════════════════ */
@@ -292,7 +329,7 @@
         dragState = null;
     });
 
-    /* ── Contact form subject ────────────────── */
+    /* ── Contact form subject ────────────── */
     if (contactForm) {
         contactForm.addEventListener('submit', function () {
             var nameEl = document.getElementById('name');

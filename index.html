@@ -83,7 +83,7 @@
         <div id="windows-container" class="windows-container">
 
             <!-- About window (combined hero + approach) -->
-            <div class="aero-window" id="win-about" data-win="win-about" style="top:60px;left:80px;width:620px;">
+            <div class="aero-window" id="win-about" data-win="win-about" style="width:640px;">
                 <div class="aero-titlebar" data-drag="win-about">
                     <span class="aero-titlebar-text">SynOpusTech — About</span>
                     <div class="aero-controls">
@@ -96,9 +96,39 @@
                     <p class="eyebrow">Built by KiM</p>
                     <h1>Practical AI Products for Everyday Decisions and Workflows.</h1>
                     <p class="hero-copy">
-                        I build focused AI tools that solve clear problems, from data extraction to chat experiences
-                        and travel planning.
+                        I build focused AI tools that solve clear problems — from extracting data trapped in images,
+                        to AI-powered conversations, to discovering where to eat and fly.
                     </p>
+
+                    <hr style="border:none;border-top:1px solid rgba(0,60,160,0.12);margin:1.2rem 0;">
+                    <p class="eyebrow">Three apps, shipping now</p>
+                    <div class="about-apps">
+                        <div class="about-app-item">
+                            <span class="about-app-icon">📊</span>
+                            <div>
+                                <strong>CSV Extractor</strong>
+                                <p>Upload any image of a table, receipt, or document. The AI reads it and exports clean, structured CSV — no manual re-typing, no formatting headaches.</p>
+                                <a class="about-app-link" data-open-window="win-csv">Open CSV Extractor →</a>
+                            </div>
+                        </div>
+                        <div class="about-app-item">
+                            <span class="about-app-icon">💬</span>
+                            <div>
+                                <strong>Web Chat</strong>
+                                <p>A fast, browser-based AI chat assistant. Ask questions, brainstorm ideas, and get instant answers — no account, no friction.</p>
+                                <a class="about-app-link" data-open-window="win-chat">Open Web Chat →</a>
+                            </div>
+                        </div>
+                        <div class="about-app-item">
+                            <span class="about-app-icon">✈️</span>
+                            <div>
+                                <strong>KimmyGo</strong>
+                                <p>Discover restaurants you’ll actually love and find flights to match your next adventure — restaurant discovery and flight search in one place.</p>
+                                <a class="about-app-link" data-open-window="win-kimmygo">Open KimmyGo →</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <hr style="border:none;border-top:1px solid rgba(0,60,160,0.12);margin:1.2rem 0;">
                     <p class="eyebrow">How I Build</p>
                     <h2 style="font-size:clamp(1.2rem,2.5vw,1.6rem);color:var(--ink-900);">Fast iteration, real-world value.</h2>
@@ -118,7 +148,7 @@
             </div>
 
             <!-- Contact window -->
-            <div class="aero-window" id="win-contact" data-win="win-contact" style="top:80px;left:400px;width:520px;">
+            <div class="aero-window" id="win-contact" data-win="win-contact" style="width:520px;">
                 <div class="aero-titlebar" data-drag="win-contact">
                     <span class="aero-titlebar-text">Contact — Let's Build Your Next AI App</span>
                     <div class="aero-controls">
@@ -149,7 +179,7 @@
             </div>
 
             <!-- CSV Extractor app window -->
-            <div class="aero-window" id="win-csv" data-win="win-csv" style="top:40px;left:120px;width:900px;height:620px;">
+            <div class="aero-window" id="win-csv" data-win="win-csv" style="width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-csv">
                     <span class="aero-titlebar-text">📊 CSV Extractor — csv.synopustech.com</span>
                     <div class="aero-controls">
@@ -162,7 +192,7 @@
             </div>
 
             <!-- Web Chat app window -->
-            <div class="aero-window" id="win-chat" data-win="win-chat" style="top:60px;left:160px;width:900px;height:620px;">
+            <div class="aero-window" id="win-chat" data-win="win-chat" style="width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-chat">
                     <span class="aero-titlebar-text">💬 Web Chat — chat.synopustech.com</span>
                     <div class="aero-controls">
@@ -175,7 +205,7 @@
             </div>
 
             <!-- KimmyGo app window -->
-            <div class="aero-window" id="win-kimmygo" data-win="win-kimmygo" style="top:80px;left:200px;width:900px;height:620px;">
+            <div class="aero-window" id="win-kimmygo" data-win="win-kimmygo" style="width:900px;height:620px;">
                 <div class="aero-titlebar" data-drag="win-kimmygo">
                     <span class="aero-titlebar-text">✈️ KimmyGo — kimmygo.com</span>
                     <div class="aero-controls">
@@ -188,7 +218,7 @@
             </div>
 
             <!-- Privacy Policy window (starts minimized) -->
-            <div class="aero-window minimized" id="win-privacy" data-win="win-privacy" style="top:60px;left:150px;width:640px;height:540px;">
+            <div class="aero-window minimized" id="win-privacy" data-win="win-privacy" style="width:640px;height:540px;">
                 <div class="aero-titlebar" data-drag="win-privacy">
                     <span class="aero-titlebar-text">🔒 Privacy Policy — SynOpusTech</span>
                     <div class="aero-controls">
