@@ -18,6 +18,16 @@
     var contactForm = document.getElementById('contactForm');
     var successMsg = document.getElementById('success-message');
 
+    var calcDisplayEl = document.getElementById('calc-display');
+    var calcExpressionEl = document.getElementById('calc-expression');
+    var calcKeypadEl = document.getElementById('calc-keypad');
+
+    var notesEditorEl = document.getElementById('notes-editor');
+    var notesTitleEl = document.getElementById('notes-title');
+    var notesStatusEl = document.getElementById('notes-status');
+    var notesClearBtnEl = document.getElementById('notes-clear-btn');
+    var notesDownloadBtnEl = document.getElementById('notes-download-btn');
+
     var topZ = 100;
 
     function clamp(value, min, max) {
@@ -445,6 +455,8 @@
             ['win-csv',     900, 620],
             ['win-chat',    900, 620],
             ['win-kimmygo', 900, 620],
+            ['win-calculator', 356, 560],
+            ['win-notepad', 760, 560],
             ['win-privacy', 640, 540]
         ];
 
@@ -578,6 +590,230 @@
             }
         });
     }
+
+    /* ── Calculator app ───────────────────────── */
+    (function initCalculator() {
+        var calcState;
+
+        function resetState() {
+            calcState = {
+                display: '0',
+                first: null,
+                operator: null,
+                waitingForSecond: false,
+                expression: '0'
+            };
+            render();
+        }
+
+        function formatNumber(value) {
+            if (!isFinite(value)) return 'Error';
+            var rounded = Math.round(value * 1000000000) / 1000000000;
+            return String(rounded);
+        }
+
+        function compute(a, b, op) {
+            if (op === '+') return a + b;
+            if (op === '-') return a - b;
+            if (op === '*') return a * b;
+            if (op === '/') {
+                if (b === 0) return NaN;
+                return a / b;
+            }
+            return b;
+        }
+
+        function render() {
+            if (!calcDisplayEl || !calcExpressionEl) return;
+            calcDisplayEl.textContent = calcState.display;
+            calcExpressionEl.textContent = calcState.expression;
+        }
+
+        function setDisplayValue(next) {
+            if (next === 'Error') {
+                calcState.display = 'Error';
+                calcState.expression = 'Error';
+                calcState.first = null;
+                calcState.operator = null;
+                calcState.waitingForSecond = true;
+                render();
+                return;
+            }
+            calcState.display = next;
+            render();
+        }
+
+        function inputDigit(digit) {
+            if (calcState.display === 'Error') resetState();
+            if (calcState.waitingForSecond) {
+                calcState.display = digit;
+                calcState.waitingForSecond = false;
+            } else {
+                calcState.display = calcState.display === '0' ? digit : calcState.display + digit;
+            }
+            calcState.expression = calcState.display;
+            render();
+        }
+
+        function inputDecimal() {
+            if (calcState.display === 'Error') resetState();
+            if (calcState.waitingForSecond) {
+                calcState.display = '0.';
+                calcState.waitingForSecond = false;
+                calcState.expression = calcState.display;
+                render();
+                return;
+            }
+            if (calcState.display.indexOf('.') === -1) {
+                calcState.display += '.';
+                calcState.expression = calcState.display;
+                render();
+            }
+        }
+
+        function applyOperator(nextOperator) {
+            if (calcState.display === 'Error') resetState();
+            var inputValue = parseFloat(calcState.display);
+
+            if (calcState.first === null || !isFinite(calcState.first)) {
+                calcState.first = inputValue;
+            } else if (calcState.operator && !calcState.waitingForSecond) {
+                var result = compute(calcState.first, inputValue, calcState.operator);
+                if (!isFinite(result)) {
+                    setDisplayValue('Error');
+                    return;
+                }
+                calcState.first = result;
+                calcState.display = formatNumber(result);
+            }
+
+            calcState.waitingForSecond = true;
+            calcState.operator = nextOperator;
+            calcState.expression = calcState.display + ' ' + (nextOperator === '*' ? '×' : nextOperator === '/' ? '÷' : nextOperator);
+            render();
+        }
+
+        function applyPercent() {
+            if (calcState.display === 'Error') resetState();
+            var value = parseFloat(calcState.display) / 100;
+            calcState.display = formatNumber(value);
+            calcState.expression = calcState.display;
+            render();
+        }
+
+        function applySign() {
+            if (calcState.display === 'Error') resetState();
+            if (calcState.display === '0') return;
+            calcState.display = calcState.display.charAt(0) === '-' ? calcState.display.slice(1) : '-' + calcState.display;
+            calcState.expression = calcState.display;
+            render();
+        }
+
+        function applyEquals() {
+            if (calcState.display === 'Error') resetState();
+            if (calcState.operator === null || calcState.first === null) return;
+            var second = parseFloat(calcState.display);
+            var result = compute(calcState.first, second, calcState.operator);
+            if (!isFinite(result)) {
+                setDisplayValue('Error');
+                return;
+            }
+            var opSymbol = calcState.operator === '*' ? '×' : calcState.operator === '/' ? '÷' : calcState.operator;
+            calcState.expression = formatNumber(calcState.first) + ' ' + opSymbol + ' ' + formatNumber(second);
+            calcState.display = formatNumber(result);
+            calcState.first = result;
+            calcState.operator = null;
+            calcState.waitingForSecond = true;
+            render();
+        }
+
+        if (!calcKeypadEl || !calcDisplayEl || !calcExpressionEl) return;
+
+        resetState();
+
+        calcKeypadEl.addEventListener('click', function (e) {
+            var btn = e.target.closest('button');
+            if (!btn) return;
+
+            var digit = btn.getAttribute('data-digit');
+            var op = btn.getAttribute('data-op');
+            var action = btn.getAttribute('data-action');
+
+            if (digit !== null) {
+                inputDigit(digit);
+                return;
+            }
+            if (op) {
+                applyOperator(op);
+                return;
+            }
+            if (action === 'decimal') inputDecimal();
+            else if (action === 'clear') resetState();
+            else if (action === 'sign') applySign();
+            else if (action === 'percent') applyPercent();
+            else if (action === 'equals') applyEquals();
+        });
+    })();
+
+    /* ── Notes app ────────────────────────────── */
+    (function initNotes() {
+        var NOTES_TEXT_KEY = 'synopustech_notes_text';
+        var NOTES_TITLE_KEY = 'synopustech_notes_title';
+
+        function setStatus(text) {
+            if (!notesStatusEl) return;
+            notesStatusEl.textContent = text;
+        }
+
+        function saveNotes() {
+            if (!notesEditorEl || !notesTitleEl) return;
+            localStorage.setItem(NOTES_TEXT_KEY, notesEditorEl.value);
+            localStorage.setItem(NOTES_TITLE_KEY, notesTitleEl.value || 'New Note');
+            setStatus('Saved locally at ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        }
+
+        function downloadNotes() {
+            if (!notesEditorEl || !notesTitleEl) return;
+            var title = (notesTitleEl.value || 'note').trim();
+            var safe = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'note';
+            var text = notesEditorEl.value || '';
+            var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = safe + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            setStatus('Exported ' + safe + '.txt');
+        }
+
+        function clearNotes() {
+            if (!notesEditorEl || !notesTitleEl) return;
+            notesTitleEl.value = 'New Note';
+            notesEditorEl.value = '';
+            saveNotes();
+            setStatus('Note cleared.');
+        }
+
+        if (!notesEditorEl || !notesTitleEl) return;
+
+        var savedText = localStorage.getItem(NOTES_TEXT_KEY);
+        var savedTitle = localStorage.getItem(NOTES_TITLE_KEY);
+        if (savedTitle) notesTitleEl.value = savedTitle;
+        if (savedText) notesEditorEl.value = savedText;
+
+        notesEditorEl.addEventListener('input', saveNotes);
+        notesTitleEl.addEventListener('input', saveNotes);
+
+        if (notesClearBtnEl) {
+            notesClearBtnEl.addEventListener('click', clearNotes);
+        }
+        if (notesDownloadBtnEl) {
+            notesDownloadBtnEl.addEventListener('click', downloadNotes);
+        }
+    })();
 
     /* ── Initial state: show all windows ─────── */
     // All windows start visible; the login screen covers them

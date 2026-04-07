@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css?v=20260706e">
+    <link rel="stylesheet" href="css/index.css?v=20260706f">
 </head>
 <body>
     <a href="#desktop" class="skip-link">Skip to main content</a>
@@ -200,6 +200,76 @@
                 <iframe class="aero-iframe" src="https://finder.synopustech.com" title="Finder app"></iframe>
             </div>
 
+            <!-- Calculator app window (starts minimized) -->
+            <div class="aero-window minimized" id="win-calculator" data-win="win-calculator" style="width:356px;height:560px;">
+                <div class="aero-titlebar" data-drag="win-calculator">
+                    <span class="aero-titlebar-text">Calculator</span>
+                    <div class="aero-controls">
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-calculator" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-calculator" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-calculator" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="aero-body calculator-body">
+                    <div class="calc-display-wrap">
+                        <p class="calc-display-label" id="calc-expression">0</p>
+                        <p class="calc-display" id="calc-display" aria-live="polite">0</p>
+                    </div>
+                    <div class="calc-keypad" id="calc-keypad" role="group" aria-label="Calculator keypad">
+                        <button class="calc-key calc-key-fn" type="button" data-action="clear">AC</button>
+                        <button class="calc-key calc-key-fn" type="button" data-action="sign">+/-</button>
+                        <button class="calc-key calc-key-fn" type="button" data-action="percent">%</button>
+                        <button class="calc-key calc-key-op" type="button" data-op="/">÷</button>
+
+                        <button class="calc-key" type="button" data-digit="7">7</button>
+                        <button class="calc-key" type="button" data-digit="8">8</button>
+                        <button class="calc-key" type="button" data-digit="9">9</button>
+                        <button class="calc-key calc-key-op" type="button" data-op="*">×</button>
+
+                        <button class="calc-key" type="button" data-digit="4">4</button>
+                        <button class="calc-key" type="button" data-digit="5">5</button>
+                        <button class="calc-key" type="button" data-digit="6">6</button>
+                        <button class="calc-key calc-key-op" type="button" data-op="-">−</button>
+
+                        <button class="calc-key" type="button" data-digit="1">1</button>
+                        <button class="calc-key" type="button" data-digit="2">2</button>
+                        <button class="calc-key" type="button" data-digit="3">3</button>
+                        <button class="calc-key calc-key-op" type="button" data-op="+">+</button>
+
+                        <button class="calc-key calc-key-zero" type="button" data-digit="0">0</button>
+                        <button class="calc-key" type="button" data-action="decimal">.</button>
+                        <button class="calc-key calc-key-op" type="button" data-action="equals">=</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes app window (starts minimized) -->
+            <div class="aero-window minimized" id="win-notepad" data-win="win-notepad" style="width:760px;height:560px;">
+                <div class="aero-titlebar" data-drag="win-notepad">
+                    <span class="aero-titlebar-text">Notes</span>
+                    <div class="aero-controls">
+                        <button class="aero-btn aero-btn-min" data-action="minimize" data-win="win-notepad" aria-label="Minimize"></button>
+                        <button class="aero-btn aero-btn-max" data-action="maximize" data-win="win-notepad" aria-label="Maximize"></button>
+                        <button class="aero-btn aero-btn-close" data-action="close" data-win="win-notepad" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="aero-body notes-body">
+                    <div class="notes-toolbar">
+                        <div class="notes-title-wrap">
+                            <span class="notes-dot" aria-hidden="true"></span>
+                            <label class="notes-title-label" for="notes-title">Title</label>
+                            <input id="notes-title" class="notes-title-input" type="text" value="New Note" maxlength="80" aria-label="Note title">
+                        </div>
+                        <div class="notes-actions">
+                            <button id="notes-clear-btn" class="notes-btn" type="button">Clear</button>
+                            <button id="notes-download-btn" class="notes-btn notes-btn-primary" type="button">Export TXT</button>
+                        </div>
+                    </div>
+                    <textarea id="notes-editor" class="notes-editor" placeholder="Write your notes here..." aria-label="Notes editor"></textarea>
+                    <p class="notes-status" id="notes-status">Saved locally in this browser.</p>
+                </div>
+            </div>
+
             <!-- Privacy Policy window (starts minimized) -->
             <div class="aero-window minimized" id="win-privacy" data-win="win-privacy" style="width:640px;height:540px;">
                 <div class="aero-titlebar" data-drag="win-privacy">
@@ -282,6 +352,8 @@
                     <button class="start-item" data-window="win-csv">📊 CSV Extractor</button>
                     <button class="start-item" data-window="win-chat">💬 Web Chat</button>
                     <button class="start-item" data-window="win-kimmygo">🍽️ Finder</button>
+                    <button class="start-item" data-window="win-calculator">🧮 Calculator</button>
+                    <button class="start-item" data-window="win-notepad">📝 Notes</button>
                 </div>
                 <div class="start-menu-footer">
                     macOS-inspired interface &bull; &copy; <span id="current-year">2026</span> SynOpusTech
@@ -294,6 +366,8 @@
                 <button class="taskbar-btn active" data-win="win-csv" title="CSV Extractor"><span class="dock-emoji">📊</span><span class="dock-text">CSV</span></button>
                 <button class="taskbar-btn active" data-win="win-chat" title="Web Chat"><span class="dock-emoji">💬</span><span class="dock-text">Chat</span></button>
                 <button class="taskbar-btn active" data-win="win-kimmygo" title="Finder"><span class="dock-emoji">🍽️</span><span class="dock-text">Finder</span></button>
+                <button class="taskbar-btn minimized-btn" data-win="win-calculator" title="Calculator"><span class="dock-emoji">🧮</span><span class="dock-text">Calc</span></button>
+                <button class="taskbar-btn minimized-btn" data-win="win-notepad" title="Notes"><span class="dock-emoji">📝</span><span class="dock-text">Notes</span></button>
                 <button class="taskbar-btn minimized-btn" data-win="win-privacy" title="Privacy Policy"><span class="dock-emoji">🔒</span><span class="dock-text">Privacy</span></button>
             </div>
 
@@ -374,6 +448,6 @@
     </div>
 
     <script src="js/structured-data.js?v=20260706d"></script>
-    <script src="js/index.js?v=20260706d"></script>
+    <script src="js/index.js?v=20260706e"></script>
 </body>
 </html>

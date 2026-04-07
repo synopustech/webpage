@@ -819,6 +819,197 @@ a:focus-visible {
     min-height: 0;
 }
 
+/* ===================================================
+   Calculator App
+   =================================================== */
+.calculator-body {
+    padding: 1rem;
+    background: linear-gradient(170deg, rgba(28, 32, 43, 0.96), rgba(21, 25, 34, 0.95));
+    color: #fff;
+}
+
+.calc-display-wrap {
+    border-radius: 16px;
+    padding: 0.9rem 0.95rem 0.75rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    margin-bottom: 0.9rem;
+}
+
+.calc-display-label {
+    margin: 0;
+    text-align: right;
+    font-size: 0.8rem;
+    color: rgba(227, 234, 255, 0.7);
+    min-height: 1.1rem;
+}
+
+.calc-display {
+    margin: 0.22rem 0 0;
+    text-align: right;
+    font-size: clamp(1.9rem, 4.2vw, 2.5rem);
+    font-weight: 560;
+    color: #f7f9ff;
+    line-height: 1.08;
+    letter-spacing: 0.02em;
+    min-height: 2.7rem;
+    word-break: break-all;
+}
+
+.calc-keypad {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+
+.calc-key {
+    appearance: none;
+    border: none;
+    border-radius: 999px;
+    height: 56px;
+    font: inherit;
+    font-size: 1.25rem;
+    font-weight: 550;
+    color: #ffffff;
+    background: linear-gradient(180deg, rgba(95, 100, 113, 0.95), rgba(71, 76, 89, 0.95));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    cursor: pointer;
+    transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.calc-key:hover { filter: brightness(1.07); }
+.calc-key:active { transform: scale(0.98); }
+
+.calc-key-fn {
+    color: #1d2435;
+    background: linear-gradient(180deg, #d6d9de, #bfc3ca);
+}
+
+.calc-key-op {
+    color: #ffffff;
+    background: linear-gradient(180deg, #ffb249, #ff8f1d);
+}
+
+.calc-key-zero {
+    grid-column: span 2;
+    text-align: left;
+    padding-left: 1.5rem;
+}
+
+/* ===================================================
+   Notes App
+   =================================================== */
+.notes-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #fff7d8 0%, #fdf0be 100%);
+}
+
+.notes-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 0.75rem 0.95rem;
+    border-bottom: 1px solid rgba(191, 160, 80, 0.42);
+    background: rgba(252, 233, 163, 0.58);
+}
+
+.notes-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.notes-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #fff6ca, #efc13f);
+    box-shadow: 0 0 0 1px rgba(161, 127, 49, 0.46);
+    flex-shrink: 0;
+}
+
+.notes-title-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b5a25;
+}
+
+.notes-title-input {
+    border: 1px solid rgba(170, 138, 48, 0.36);
+    border-radius: 8px;
+    padding: 0.35rem 0.5rem;
+    font: inherit;
+    font-size: 0.9rem;
+    color: #4b3f1b;
+    background: rgba(255, 252, 235, 0.86);
+    min-width: 0;
+    flex: 1;
+}
+
+.notes-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+}
+
+.notes-btn {
+    appearance: none;
+    border: 1px solid rgba(168, 136, 47, 0.42);
+    border-radius: 9px;
+    background: rgba(255, 253, 244, 0.84);
+    color: #5d4a1a;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 670;
+    padding: 0.38rem 0.68rem;
+    cursor: pointer;
+    transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.notes-btn:hover { filter: brightness(1.04); }
+.notes-btn:active { transform: translateY(1px); }
+
+.notes-btn-primary {
+    background: linear-gradient(180deg, #ffe28c, #f7c745);
+}
+
+.notes-editor {
+    flex: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 1.15rem 1.2rem;
+    font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.99rem;
+    line-height: 1.56;
+    color: #4c3f1e;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 30px,
+            rgba(196, 161, 69, 0.22) 31px
+        );
+}
+
+.notes-status {
+    margin: 0;
+    padding: 0.55rem 1rem 0.72rem;
+    font-size: 0.76rem;
+    color: rgba(96, 75, 30, 0.76);
+    border-top: 1px solid rgba(191, 160, 80, 0.33);
+    background: rgba(252, 233, 163, 0.42);
+}
+
 .privacy-body {
     padding: 1.5rem 2rem;
     overflow-y: auto;
