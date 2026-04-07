@@ -359,6 +359,16 @@ body {
     flex: 1;
 }
 
+.aero-titlebar-text .titlebar-url {
+    color: #2a3357;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.aero-titlebar-text .titlebar-url:hover {
+    color: #1b4f9d;
+}
+
 .aero-controls {
     display: flex;
     align-items: center;

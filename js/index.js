@@ -477,8 +477,8 @@
     document.addEventListener('mousedown', function (e) {
         var titlebar = e.target.closest('[data-drag]');
         if (!titlebar) return;
-        // Don't drag if clicking a button
-        if (e.target.closest('button')) return;
+        // Don't drag when interacting with controls or links.
+        if (e.target.closest('button, a')) return;
 
         var winId = titlebar.getAttribute('data-drag');
         var win = document.getElementById(winId);
@@ -523,7 +523,7 @@
     document.addEventListener('touchstart', function (e) {
         var titlebar = e.target.closest('[data-drag]');
         if (!titlebar) return;
-        if (e.target.closest('button')) return;
+        if (e.target.closest('button, a')) return;
 
         var winId = titlebar.getAttribute('data-drag');
         var win = document.getElementById(winId);
