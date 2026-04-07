@@ -52,6 +52,137 @@
         });
     }
 
+    function resetWindowFx(win) {
+        if (!win) return;
+        win.classList.remove('fx-animating', 'fx-minimizing', 'fx-closing', 'fx-restoring');
+        win.style.transform = '';
+        win.style.opacity = '';
+        win.style.filter = '';
+        win.style.transition = '';
+        win.style.transformOrigin = '';
+        delete win.dataset.fxRunning;
+    }
+
+    function getWindowToTaskbarDelta(win, winId) {
+        var winRect = win.getBoundingClientRect();
+        var target = taskbarButtons ? taskbarButtons.querySelector('[data-win="' + winId + '"]') : null;
+        var targetRect;
+        var targetX;
+        var targetY;
+
+        if (!target && startBtn) target = startBtn;
+
+        if (target) {
+            targetRect = target.getBoundingClientRect();
+            targetX = targetRect.left + (targetRect.width / 2);
+            targetY = targetRect.top + (targetRect.height / 2);
+        } else {
+            targetX = window.innerWidth / 2;
+            targetY = window.innerHeight;
+        }
+
+        return {
+            x: targetX - (winRect.left + (winRect.width / 2)),
+            y: targetY - (winRect.top + (winRect.height / 2))
+        };
+    }
+
+    function runWindowFx(win, effectClass, applyEndStyles, onDone) {
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var finished = false;
+        var fallbackTimer;
+
+        if (!win || win.dataset.fxRunning === '1') return;
+
+        if (reduceMotion) {
+            onDone();
+            return;
+        }
+
+        win.dataset.fxRunning = '1';
+        win.classList.add('fx-animating', effectClass);
+        win.style.transform = '';
+        win.style.opacity = '1';
+        win.style.filter = '';
+        win.getBoundingClientRect();
+
+        function finalize() {
+            if (finished) return;
+            finished = true;
+            clearTimeout(fallbackTimer);
+            onDone();
+            resetWindowFx(win);
+        }
+
+        win.addEventListener('transitionend', function onTransitionEnd(e) {
+            if (e.target !== win || e.propertyName !== 'transform') return;
+            win.removeEventListener('transitionend', onTransitionEnd);
+            finalize();
+        });
+
+        fallbackTimer = setTimeout(finalize, effectClass === 'fx-closing' ? 260 : 420);
+
+        window.requestAnimationFrame(function () {
+            applyEndStyles();
+        });
+    }
+
+    function runWindowRestoreFx(win, winId) {
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var finished = false;
+        var fallbackTimer;
+        var delta;
+        var animation;
+
+        if (!win || win.dataset.fxRunning === '1' || win.classList.contains('maximized')) return;
+
+        if (reduceMotion) {
+            resetWindowFx(win);
+            return;
+        }
+
+        delta = getWindowToTaskbarDelta(win, winId);
+        win.dataset.fxRunning = '1';
+        win.classList.add('fx-restoring');
+
+        function finalize() {
+            if (finished) return;
+            finished = true;
+            clearTimeout(fallbackTimer);
+            if (animation && animation.playState === 'running') animation.cancel();
+            resetWindowFx(win);
+        }
+
+        if (typeof win.animate !== 'function') {
+            finalize();
+            return;
+        }
+
+        animation = win.animate(
+            [
+                {
+                    transform: 'translate(' + delta.x + 'px, ' + delta.y + 'px) scale(0.18)',
+                    opacity: 0.08,
+                    filter: 'blur(1.6px) saturate(1.06)'
+                },
+                {
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 1,
+                    filter: 'blur(0px) saturate(1)'
+                }
+            ],
+            {
+                duration: 380,
+                easing: 'cubic-bezier(0.17, 0.89, 0.32, 1.18)',
+                fill: 'none'
+            }
+        );
+
+        animation.addEventListener('finish', finalize);
+        animation.addEventListener('cancel', finalize);
+        fallbackTimer = setTimeout(finalize, 480);
+    }
+
     /* ── Login ────────────────────────────────── */
     if (loginBtn) {
         loginBtn.addEventListener('click', function () {
@@ -128,7 +259,11 @@
     /* ── Show window ─────────────────────────── */
     function showWindow(winId) {
         var win = document.getElementById(winId);
+        var wasMinimized;
+
         if (!win) return;
+        wasMinimized = win.classList.contains('minimized');
+        resetWindowFx(win);
         win.classList.remove('minimized');
         win.style.display = '';
         snapWindowInside(win);
@@ -145,28 +280,62 @@
             iframe.src = iframe.getAttribute('data-src');
             iframe.removeAttribute('data-src');
         }
+
+        if (wasMinimized) runWindowRestoreFx(win, winId);
     }
 
     /* ── Minimize window ─────────────────────── */
     function minimizeWindow(winId) {
         var win = document.getElementById(winId);
-        if (!win) return;
-        win.classList.add('minimized');
         var tb = taskbarButtons.querySelector('[data-win="' + winId + '"]');
-        if (tb) tb.classList.add('minimized-btn');
+        var delta;
+
+        if (!win) return;
+        if (win.classList.contains('minimized')) return;
+        delta = getWindowToTaskbarDelta(win, winId);
+
+        runWindowFx(
+            win,
+            'fx-minimizing',
+            function () {
+                win.style.transformOrigin = 'center center';
+                win.style.transform = 'translate(' + delta.x + 'px, ' + delta.y + 'px) scale(0.15)';
+                win.style.opacity = '0.07';
+                win.style.filter = 'blur(1.6px) saturate(1.08)';
+            },
+            function () {
+                win.classList.add('minimized');
+                if (tb) tb.classList.add('minimized-btn');
+            }
+        );
     }
 
     /* ── Close window ────────────────────────── */
     function closeWindow(winId) {
         var win = document.getElementById(winId);
-        if (!win) return;
-        win.classList.add('minimized');
         var tb = taskbarButtons.querySelector('[data-win="' + winId + '"]');
-        if (tb) {
-            tb.classList.remove('active');
-            tb.classList.remove('focused');
-            tb.classList.add('minimized-btn');
-        }
+
+        if (!win) return;
+        if (win.classList.contains('minimized')) return;
+
+        runWindowFx(
+            win,
+            'fx-closing',
+            function () {
+                win.style.transformOrigin = 'center center';
+                win.style.transform = 'translateY(16px) scale(0.84)';
+                win.style.opacity = '0';
+                win.style.filter = 'blur(1.8px)';
+            },
+            function () {
+                win.classList.add('minimized');
+                if (tb) {
+                    tb.classList.remove('active');
+                    tb.classList.remove('focused');
+                    tb.classList.add('minimized-btn');
+                }
+            }
+        );
     }
 
     /* ── Maximize window ─────────────────────── */
@@ -313,7 +482,7 @@
 
         var winId = titlebar.getAttribute('data-drag');
         var win = document.getElementById(winId);
-        if (!win || win.classList.contains('maximized')) return;
+        if (!win || win.classList.contains('maximized') || win.dataset.fxRunning === '1') return;
 
         e.preventDefault();
         focusWindow(winId);
@@ -358,7 +527,7 @@
 
         var winId = titlebar.getAttribute('data-drag');
         var win = document.getElementById(winId);
-        if (!win || win.classList.contains('maximized')) return;
+        if (!win || win.classList.contains('maximized') || win.dataset.fxRunning === '1') return;
 
         var touch = e.touches[0];
         focusWindow(winId);

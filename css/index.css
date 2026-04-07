@@ -289,6 +289,27 @@ body {
     min-height: 220px;
 }
 
+.aero-window.fx-animating {
+    will-change: transform, opacity, filter;
+    transition:
+        transform 340ms cubic-bezier(0.22, 0.78, 0.2, 1),
+        opacity 300ms ease,
+        filter 300ms ease,
+        box-shadow 0.2s ease;
+}
+
+.aero-window.fx-closing {
+    transition-duration: 220ms, 200ms, 200ms, 0.2s;
+}
+
+.aero-window.fx-restoring {
+    transition:
+        transform 380ms cubic-bezier(0.17, 0.89, 0.32, 1.18),
+        opacity 320ms ease,
+        filter 320ms ease,
+        box-shadow 0.2s ease;
+}
+
 .aero-window.focused {
     box-shadow: var(--mac-shadow), 0 0 0 1px rgba(255, 255, 255, 0.2), 0 16px 40px rgba(9, 13, 28, 0.35);
 }
@@ -302,6 +323,15 @@ body {
     height: 100% !important;
     border-radius: 0;
     resize: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aero-window,
+    .aero-window.fx-animating,
+    .aero-window.fx-closing,
+    .aero-window.fx-restoring {
+        transition: none !important;
+    }
 }
 
 .aero-titlebar {
