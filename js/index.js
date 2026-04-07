@@ -11,6 +11,7 @@
     var startBtn = document.getElementById('start-btn');
     var startMenu = document.getElementById('start-menu');
     var taskbarButtons = document.getElementById('taskbar-buttons');
+    var windowsContainer = document.getElementById('windows-container');
     var clockEl = document.getElementById('taskbar-clock');
     var menuClockEl = document.getElementById('menu-clock');
     var yearEl = document.getElementById('current-year');
@@ -18,6 +19,38 @@
     var successMsg = document.getElementById('success-message');
 
     var topZ = 100;
+
+    function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    function getSnappedWindowPosition(win, left, top) {
+        var container = windowsContainer || win.parentElement;
+        if (!container || !container.clientWidth || !container.clientHeight) {
+            return { left: left, top: top };
+        }
+
+        return {
+            left: clamp(left, 0, Math.max(0, container.clientWidth - win.offsetWidth)),
+            top: clamp(top, 0, Math.max(0, container.clientHeight - win.offsetHeight))
+        };
+    }
+
+    function snapWindowInside(win) {
+        var position;
+
+        if (!win || win.classList.contains('maximized')) return;
+
+        position = getSnappedWindowPosition(win, win.offsetLeft, win.offsetTop);
+        win.style.left = position.left + 'px';
+        win.style.top = position.top + 'px';
+    }
+
+    function snapAllWindowsInside() {
+        document.querySelectorAll('.aero-window').forEach(function (win) {
+            snapWindowInside(win);
+        });
+    }
 
     /* ── Login ────────────────────────────────── */
     if (loginBtn) {
@@ -34,6 +67,7 @@
                 showWindow('win-kimmygo');
                 showWindow('win-contact');
                 showWindow('win-about');
+                window.requestAnimationFrame(snapAllWindowsInside);
             }, 600);
         });
     }
@@ -42,6 +76,7 @@
     if (window.location.search.indexOf('submitted=true') !== -1) {
         if (loginScreen) loginScreen.style.display = 'none';
         if (desktop) desktop.classList.remove('hidden');
+        window.requestAnimationFrame(snapAllWindowsInside);
         if (successMsg) {
             successMsg.hidden = false;
             showWindow('win-contact');
@@ -96,6 +131,7 @@
         if (!win) return;
         win.classList.remove('minimized');
         win.style.display = '';
+        snapWindowInside(win);
         focusWindow(winId);
         // Update taskbar btn
         var tb = taskbarButtons.querySelector('[data-win="' + winId + '"]');
@@ -138,6 +174,7 @@
         var win = document.getElementById(winId);
         if (!win) return;
         win.classList.toggle('maximized');
+        if (!win.classList.contains('maximized')) snapWindowInside(win);
         focusWindow(winId);
     }
 
@@ -250,6 +287,7 @@
             var maxTop  = Math.max(menuBarH + edge, vh - dockH - h - edge);
             el.style.left = rand(edge, maxLeft) + 'px';
             el.style.top  = rand(menuBarH + edge, maxTop)  + 'px';
+            snapWindowInside(el);
         });
     }
 
@@ -291,16 +329,24 @@
     });
 
     document.addEventListener('mousemove', function (e) {
+        var nextPosition;
+
         if (!dragState) return;
         e.preventDefault();
-        var dx = e.clientX - dragState.startX;
-        var dy = e.clientY - dragState.startY;
-        dragState.win.style.left = (dragState.origLeft + dx) + 'px';
-        dragState.win.style.top = (dragState.origTop + dy) + 'px';
+        nextPosition = getSnappedWindowPosition(
+            dragState.win,
+            dragState.origLeft + (e.clientX - dragState.startX),
+            dragState.origTop + (e.clientY - dragState.startY)
+        );
+        dragState.win.style.left = nextPosition.left + 'px';
+        dragState.win.style.top = nextPosition.top + 'px';
     });
 
     document.addEventListener('mouseup', function () {
-        if (dragState) setIframePointerEvents('');
+        if (dragState) {
+            setIframePointerEvents('');
+            snapWindowInside(dragState.win);
+        }
         dragState = null;
     });
 
@@ -327,17 +373,30 @@
     }, { passive: true });
 
     document.addEventListener('touchmove', function (e) {
+        var nextPosition;
+
         if (!dragState) return;
         var touch = e.touches[0];
-        var dx = touch.clientX - dragState.startX;
-        var dy = touch.clientY - dragState.startY;
-        dragState.win.style.left = (dragState.origLeft + dx) + 'px';
-        dragState.win.style.top = (dragState.origTop + dy) + 'px';
+        nextPosition = getSnappedWindowPosition(
+            dragState.win,
+            dragState.origLeft + (touch.clientX - dragState.startX),
+            dragState.origTop + (touch.clientY - dragState.startY)
+        );
+        dragState.win.style.left = nextPosition.left + 'px';
+        dragState.win.style.top = nextPosition.top + 'px';
     }, { passive: true });
 
     document.addEventListener('touchend', function () {
-        if (dragState) setIframePointerEvents('');
+        if (dragState) {
+            setIframePointerEvents('');
+            snapWindowInside(dragState.win);
+        }
         dragState = null;
+    });
+
+    window.addEventListener('resize', function () {
+        if (!desktop || desktop.classList.contains('hidden')) return;
+        snapAllWindowsInside();
     });
 
     /* ── Contact form subject ────────────── */
